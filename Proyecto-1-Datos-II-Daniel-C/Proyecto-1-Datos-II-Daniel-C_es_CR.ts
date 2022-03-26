@@ -13,10 +13,5 @@
         <source>PushButton</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <location filename="client.ui" line="47"/>
-        <source>Hola</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 </TS>
