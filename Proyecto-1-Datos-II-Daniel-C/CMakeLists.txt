@@ -21,6 +21,8 @@ set(PROJECT_SOURCES
         client.cpp
         client.h
         client.ui
+        server.h
+        server.cpp
         ${TS_FILES}
 )
 

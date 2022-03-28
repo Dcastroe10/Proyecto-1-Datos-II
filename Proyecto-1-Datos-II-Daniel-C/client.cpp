@@ -5,6 +5,8 @@
 #include <QtGui>
 #include <QMessageBox>
 
+#include "server.h"
+
 using namespace std;
 
 Client::Client(QWidget *parent)
@@ -22,7 +24,9 @@ Client::~Client()
 
 void Client::on_Boton_prueba_clicked()
 {
-    QMessageBox::information(this,"Hola","prueba");
+    QMessageBox::information(this,"Hola","Prueba");
+    printf("pepe");
+
 
 }
 
