@@ -61,20 +61,8 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 
 build cmake_object_order_depends_target_Prueba_sockets: phony || CMakeFiles/Prueba_sockets.dir
 
-build CMakeFiles/Prueba_sockets.dir/Server2.cpp.obj: CXX_COMPILER__Prueba_sockets_Debug D$:/Git/Datos$ II/Prueba$ sockets/Server2.cpp || cmake_object_order_depends_target_Prueba_sockets
-  DEP_FILE = CMakeFiles\Prueba_sockets.dir\Server2.cpp.obj.d
-  FLAGS = -g -std=gnu++14
-  OBJECT_DIR = CMakeFiles\Prueba_sockets.dir
-  OBJECT_FILE_DIR = CMakeFiles\Prueba_sockets.dir
-
 build CMakeFiles/Prueba_sockets.dir/Client.cpp.obj: CXX_COMPILER__Prueba_sockets_Debug D$:/Git/Datos$ II/Prueba$ sockets/Client.cpp || cmake_object_order_depends_target_Prueba_sockets
   DEP_FILE = CMakeFiles\Prueba_sockets.dir\Client.cpp.obj.d
-  FLAGS = -g -std=gnu++14
-  OBJECT_DIR = CMakeFiles\Prueba_sockets.dir
-  OBJECT_FILE_DIR = CMakeFiles\Prueba_sockets.dir
-
-build CMakeFiles/Prueba_sockets.dir/Main.cpp.obj: CXX_COMPILER__Prueba_sockets_Debug D$:/Git/Datos$ II/Prueba$ sockets/Main.cpp || cmake_object_order_depends_target_Prueba_sockets
-  DEP_FILE = CMakeFiles\Prueba_sockets.dir\Main.cpp.obj.d
   FLAGS = -g -std=gnu++14
   OBJECT_DIR = CMakeFiles\Prueba_sockets.dir
   OBJECT_FILE_DIR = CMakeFiles\Prueba_sockets.dir
@@ -93,7 +81,7 @@ build CMakeFiles/Prueba_sockets.dir/Server.cpp.obj: CXX_COMPILER__Prueba_sockets
 #############################################
 # Link the executable Prueba_sockets.exe
 
-build Prueba_sockets.exe: CXX_EXECUTABLE_LINKER__Prueba_sockets_Debug CMakeFiles/Prueba_sockets.dir/Server2.cpp.obj CMakeFiles/Prueba_sockets.dir/Client.cpp.obj CMakeFiles/Prueba_sockets.dir/Main.cpp.obj CMakeFiles/Prueba_sockets.dir/Server.cpp.obj
+build Prueba_sockets.exe: CXX_EXECUTABLE_LINKER__Prueba_sockets_Debug CMakeFiles/Prueba_sockets.dir/Client.cpp.obj CMakeFiles/Prueba_sockets.dir/Server.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\Prueba_sockets.dir
