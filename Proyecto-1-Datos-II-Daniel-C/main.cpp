@@ -1,13 +1,15 @@
 #include "client.h"
-#include "server.h"
+#include "server.cpp"
+
 
 #include <QApplication>
 #include <QLocale>
 #include <QTranslator>
+#include <iostream>
 
 int main(int argc, char *argv[])
 {
-
+    std::cout << "holas holas";
     QApplication a(argc, argv);
     QTranslator translator;
     const QStringList uiLanguages = QLocale::system().uiLanguages();
@@ -18,7 +20,8 @@ int main(int argc, char *argv[])
             break;
         }
     }
-    Client w;
-    w.show();
+   Client w;
+   w.show();
+
     return a.exec();
 }

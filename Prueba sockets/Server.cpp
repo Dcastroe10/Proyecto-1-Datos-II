@@ -1,11 +1,11 @@
 #include <iostream>
 #include <string>
-#include <windows.h>
 #include <winsock2.h>
+#include <windows.h>
 #include <ws2tcpip.h>
 #include <stdio.h>
 #include <thread>
-#include <string>
+
 
 
 
@@ -40,7 +40,7 @@ private:
     int revisar_bind = 0;
     int revisar_listen = 0;
 
-    int server_socket = INVALID_SOCKET;
+    int server_socket;
     int client_socket = 10; //CHANGE para poner varios maybeee o hacer otroo
 
 
@@ -98,7 +98,7 @@ public:
         return server_socket;
     }
 
-    int connect () {
+    void connect () {
 
         //int size_client_addr = sizeof (client_addr);
         int client_lenght = sizeof(client_addr); //socket_lenth
@@ -131,16 +131,21 @@ public:
         //recv(client_socket,buffer, sizeof(buffer),0); //RECIBIR MENSAJE
         //std::cout <<"El cliente dice: " << buffer;
         //memset(buffer,0, sizeof(buffer));  //REINICIAR BUFFER CON LA ENTRADA!!!!
-        int i = 0;
-        int answer = 0;
-        memset(buffer,0, sizeof(buffer));  //REINICIAR BUFFER CON LA ENTRADA!!!!
-        std::cout << "ESTE DEBERIA SER EL BUFFER VACIO:  ";
-        printf(buffer);
+            int i = 0;
+            int answer = 0;
+            memset(buffer, 0, sizeof(buffer));  //REINICIAR BUFFER CON LA ENTRADA!!!!
+            printf(buffer);
+            answer = recv(client_socket, buffer, sizeof(buffer), 0); //RECIBIR MENSAJE
+            std::cout << "EL CLIENTE DICE ----->: " << answer;
+            std::cout << buffer << " <------EL MENSAJE IOTAS!!!!!";
 
-
-        answer = recv(client_socket,buffer, sizeof(buffer),0); //RECIBIR MENSAJE
-        std::cout<<"EL CLIENTE DICE ----->: "<< answer;
-        std::cout<<buffer<<" <------EL MENSAJE IOTAS!!!!!";
+/*
+            std::cout <<"Que desea enviar el servidor? ";
+            memset(buffer, 0, sizeof(buffer));  //REINICIAR BUFFER CON LA ENTRADA!!!!
+            std::cin >> this->buffer;
+            */
+            //std::cout <<"this is the message to be sent: "<<buffer<< "\n";
+            //send(client_socket, buffer, sizeof(buffer), 0 );//r
 
 
         //si recieve retorna -1 pegarse un tiro
@@ -161,10 +166,15 @@ public:
 
 
     void send_data(){  //cambiar el tipo de dato si quiero retornar algo!!!!!!!!
+
+
+
+
+
         std::cout <<"QUE DESEA ENVIAR?? \n";
-        //std::cin >> this->buffer;
-        std::cin >> this->string_message;
-        std::cout << "\n"<<string_message << " este es su mensaje??? \n";
+        std::cin >> this->buffer;
+        //std::cin >> this->string_message;
+        //std::cout << "\n"<<string_message << " este es su mensaje??? \n";
         send(server_socket, buffer, sizeof(buffer), 0 );//revisar si aquí va server o client (del que se manda o al que se manda
         //memset(buffer,0, sizeof(buffer));  //REINICIAR BUFFER CON LA ENTRADA!!!!
         //std::cout << "el nuevo buffer es de: "<<buffer <<" no hay nada";
@@ -188,12 +198,9 @@ int main(int argc, const char* argv[]) {
    //cliente.create_client();
     //////////////////////
     servidor.connect();
+    //servidor.send_data();
 
-
-    //cliente.send_data();
     servidor.recieve_data();
-    servidor.recieve_data();
-
 
 
 
