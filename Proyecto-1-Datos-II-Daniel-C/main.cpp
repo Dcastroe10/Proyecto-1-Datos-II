@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #include "client.h"
 #include "server.cpp"
 
@@ -23,5 +24,16 @@ int main(int argc, char *argv[])
    Client w;
    w.show();
 
+=======
+#include "game.h"
+
+#include <QApplication>
+
+int main(int argc, char *argv[])
+{
+    QApplication a(argc, argv);
+    game w;
+    w.show();
+>>>>>>> 435d69a9ca5ec579075b9bc4ce3983a49a804cd6
     return a.exec();
 }
