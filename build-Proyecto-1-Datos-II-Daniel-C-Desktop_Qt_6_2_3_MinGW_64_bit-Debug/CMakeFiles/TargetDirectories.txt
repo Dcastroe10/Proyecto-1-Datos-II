@@ -1,5 +1,0 @@
-D:/Git/Datos II/Proyecto 1-Datos II/build-Proyecto-1-Datos-II-Daniel-C-Desktop_Qt_6_2_3_MinGW_64_bit-Debug/CMakeFiles/Proyecto-1-Datos-II-Daniel-C.dir
-D:/Git/Datos II/Proyecto 1-Datos II/build-Proyecto-1-Datos-II-Daniel-C-Desktop_Qt_6_2_3_MinGW_64_bit-Debug/CMakeFiles/edit_cache.dir
-D:/Git/Datos II/Proyecto 1-Datos II/build-Proyecto-1-Datos-II-Daniel-C-Desktop_Qt_6_2_3_MinGW_64_bit-Debug/CMakeFiles/rebuild_cache.dir
-D:/Git/Datos II/Proyecto 1-Datos II/build-Proyecto-1-Datos-II-Daniel-C-Desktop_Qt_6_2_3_MinGW_64_bit-Debug/CMakeFiles/Proyecto-1-Datos-II-Daniel-C_autogen_timestamp_deps.dir
-D:/Git/Datos II/Proyecto 1-Datos II/build-Proyecto-1-Datos-II-Daniel-C-Desktop_Qt_6_2_3_MinGW_64_bit-Debug/CMakeFiles/Proyecto-1-Datos-II-Daniel-C_autogen.dir
