@@ -1,6 +1,15 @@
 #include "server_socket.h"
 
 
+#include <QImage>
+
+#include <QtDebug>
+
+
+//eliminar es una prueba
+#include "tarjetas.h"
+
+
 
 void Server_socket::Start () {
     wsa_start = WSAStartup(MAKEWORD(2,2), &wsaData);
@@ -40,19 +49,6 @@ void Server_socket::connect () {
     int client_lenght = sizeof(client_addr); //socket_lenth
     client_socket = accept(server_socket, (struct sockaddr*)&client_addr,&client_lenght);
     std::cout <<"cliente 1: "<<client_socket<<"\n";
-    client_socket2 = accept(server_socket, (struct sockaddr*)&client_addr,&client_lenght);
-    std::cout <<"cliente 2: "<<client_socket2<<"\n";
-    //std::cout <<"Cliente 1: "<< client_socket << "Cliente 2: "<< client_socket2;
-    //std::cout<<"CODIGO DE ERROR:"<<WSAGetLastError();
-       /*
-       if ((client_socket = accept(server_socket, (struct sockaddr*)&client_addr, reinterpret_cast<int *>(client_lenght))) != 0){
-           std::cout << "\n se conecto \n"; //
-           std::cout <<client_socket<<"ESTE ES EL CLIENTE";
-       }else{
-           std::cout <<"error al conectarse lol :(";
-       }
-*/
-
 
    }
 
@@ -80,14 +76,26 @@ void Server_socket::recieve_data () {
 
 
 
-
-
-
-
-
 void Server_socket::send_data(){  //cambiar el tipo de dato si quiero retornar algo!!!!!!!!
     memset(buffer, 0, sizeof(buffer));  //REINICIAR BUFFER CON LA ENTRADA!!!!
-    send(client_socket, "RECIBIDO", 8,  0 );//revisar si aquí va server o client (del que se manda o al que se manda
+    //send(client_socket, "RECIBIDO", 8,  0 );//revisar si aquí va server o client (del que se manda o al que se manda
+    QImage imagen_prueba ("Imagenes 100x100/bear.png");
+    int tamaño = imagen_prueba.sizeInBytes();
+    char image_to_send[tamaño];
+    memcpy(image_to_send,imagen_prueba.bits(),tamaño);
+    send(client_socket, image_to_send, sizeof (image_to_send),  0 );
+
+
+    tarjetas tarjeta;
+    tarjeta.set_image(image_to_send);
+    tarjeta.set_ID(0);
+    printf("%s\n", tarjeta.get_image());
+    qDebug()<<tarjeta.get_ID()<<"THIS IS THE ID";
+    qDebug() <<"imagen enviada";
+
+
+
+
 }
 
 

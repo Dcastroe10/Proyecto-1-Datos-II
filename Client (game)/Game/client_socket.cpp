@@ -1,6 +1,12 @@
 #include "client_socket.h"
 
 #include <iostream>
+#include <QDebug>
+
+
+
+
+#include "game_window.h"
 
 
 
@@ -77,17 +83,21 @@ void Client::recieve_data () { //cambiar el tipo de dato si quiero retornar algo
                 memset(buffer, 0, sizeof(buffer));  //REINICIAR BUFFER CON LA ENTRADA!!!!
                 answer = recv(cliente_socket, buffer, sizeof(buffer), 0); //RECIBIR MENSAJE
                 if(answer !=-1){
-                    //std::cout << "EL Cliente DICE ----->: " << answer;
-                    std::cout << buffer << " <------EL MENSAJE del Server!!!!!";
+                    memcpy(image,buffer,sizeof(buffer));
+                    //printf("%s\n", buffer);
                     //send_data();
                 }else{
+                    //memset(image,0,sizeof(image));
                     continue;
                 }
 }
 
 }
 
+char* Client::get_image(){
+    return image;
 
+}
 
 
 void Client::create_recieve_thread(){

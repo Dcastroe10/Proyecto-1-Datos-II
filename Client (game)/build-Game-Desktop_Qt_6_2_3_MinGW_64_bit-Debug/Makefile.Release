@@ -242,6 +242,9 @@ release/moc_game_window.cpp: ../Game/game_window.h \
 		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qnativeinterface.h \
 		D:/Qt/App/6.2.3/mingw_64/include/QtWidgets/qtabwidget.h \
 		D:/Qt/App/6.2.3/mingw_64/include/QtGui/qicon.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtGui/QPixmap \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/QDebug \
+		../Game/client_socket.h \
 		release/moc_predefs.h \
 		D:/Qt/App/6.2.3/mingw_64/bin/moc.exe
 	'D:\Qt\App\6.2.3\mingw_64\bin\moc.exe' $(DEFINES) --include 'D:/Git/Datos II/AAA Montando todo/Client (game)/build-Game-Desktop_Qt_6_2_3_MinGW_64_bit-Debug/release/moc_predefs.h' -ID:/Qt/App/6.2.3/mingw_64/mkspecs/win32-g++ -I'D:/Git/Datos II/AAA Montando todo/Client (game)/Game' -ID:/Qt/App/6.2.3/mingw_64/include -ID:/Qt/App/6.2.3/mingw_64/include/QtWidgets -ID:/Qt/App/6.2.3/mingw_64/include/QtGui -ID:/Qt/App/6.2.3/mingw_64/include/QtCore -I. -ID:/Qt/App/Tools/mingw900_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++ -ID:/Qt/App/Tools/mingw900_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32 -ID:/Qt/App/Tools/mingw900_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/backward -ID:/Qt/App/Tools/mingw900_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include -ID:/Qt/App/Tools/mingw900_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include-fixed -ID:/Qt/App/Tools/mingw900_64/x86_64-w64-mingw32/include ../Game/game_window.h -o release/moc_game_window.cpp
@@ -269,7 +272,84 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_ui
 
 ####### Compile
 
-release/client_socket.o: ../Game/client_socket.cpp ../Game/client_socket.h
+release/client_socket.o: ../Game/client_socket.cpp ../Game/client_socket.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/QDebug \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qdebug.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qalgorithms.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qglobal.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qconfig-bootstrapped.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qconfig.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qtcore-config.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qsystemdetection.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qprocessordetection.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qcompilerdetection.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qtypeinfo.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qcontainerfwd.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qsysinfo.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qlogging.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qflags.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qatomic.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qbasicatomic.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qatomic_bootstrap.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qgenericatomic.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qatomic_cxx11.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qglobalstatic.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qnumeric.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qversiontagging.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qhash.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qcontainertools_impl.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qhashfunctions.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qstring.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qchar.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qstringview.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qbytearray.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qrefcount.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qnamespace.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qtmetamacros.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qarraydata.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qpair.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qarraydatapointer.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qarraydataops.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qbytearrayalgorithms.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qbytearrayview.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qstringliteral.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qstringalgorithms.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qanystringview.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qutf8stringview.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qstringtokenizer.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qstringbuilder.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qiterator.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qlist.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qbytearraylist.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qstringlist.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qstringmatcher.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qmath.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qmap.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qshareddata.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qshareddata_impl.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qtextstream.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qiodevicebase.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qscopedpointer.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qstringconverter.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qset.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qcontiguouscache.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qsharedpointer.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qsharedpointer_impl.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qobject.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qobjectdefs.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qobjectdefs_impl.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qcoreevent.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qmetatype.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qcompare.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qvarlengtharray.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qscopeguard.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qdatastream.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qiterable.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qmetacontainer.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qcontainerinfo.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qtaggedpointer.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qobject_impl.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qbindingstorage.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/client_socket.o ../Game/client_socket.cpp
 
 release/main.o: ../Game/main.cpp ../Game/game_window.h \
@@ -402,7 +482,10 @@ release/main.o: ../Game/main.cpp ../Game/game_window.h \
 		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qnativeinterface.h \
 		D:/Qt/App/6.2.3/mingw_64/include/QtWidgets/qtabwidget.h \
 		D:/Qt/App/6.2.3/mingw_64/include/QtGui/qicon.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtGui/QPixmap \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/QDebug \
 		../Game/client_socket.h \
+		../Game/operation_center.h \
 		D:/Qt/App/6.2.3/mingw_64/include/QtWidgets/QApplication \
 		D:/Qt/App/6.2.3/mingw_64/include/QtWidgets/qapplication.h \
 		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qcoreapplication.h \
@@ -555,7 +638,50 @@ release/game_window.o: ../Game/game_window.cpp ../Game/game_window.h \
 		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qnativeinterface.h \
 		D:/Qt/App/6.2.3/mingw_64/include/QtWidgets/qtabwidget.h \
 		D:/Qt/App/6.2.3/mingw_64/include/QtGui/qicon.h \
-		ui_game_window.h
+		D:/Qt/App/6.2.3/mingw_64/include/QtGui/QPixmap \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/QDebug \
+		../Game/client_socket.h \
+		ui_game_window.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/QVariant \
+		D:/Qt/App/6.2.3/mingw_64/include/QtWidgets/QApplication \
+		D:/Qt/App/6.2.3/mingw_64/include/QtWidgets/qapplication.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qcoreapplication.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qeventloop.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qcoreapplication_platform.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qfuture.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qfutureinterface.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qmutex.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qresultstore.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qfuture_impl.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qthreadpool.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qthread.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qdeadlinetimer.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qelapsedtimer.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qrunnable.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qexception.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtGui/qguiapplication.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtGui/qinputmethod.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qlocale.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtGui/qguiapplication_platform.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtWidgets/QMenuBar \
+		D:/Qt/App/6.2.3/mingw_64/include/QtWidgets/qmenubar.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtWidgets/qmenu.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtGui/qaction.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtWidgets/QPushButton \
+		D:/Qt/App/6.2.3/mingw_64/include/QtWidgets/qpushbutton.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtWidgets/qabstractbutton.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtWidgets/QStatusBar \
+		D:/Qt/App/6.2.3/mingw_64/include/QtWidgets/qstatusbar.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtWidgets/QTextEdit \
+		D:/Qt/App/6.2.3/mingw_64/include/QtWidgets/qtextedit.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtWidgets/qabstractscrollarea.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtWidgets/qframe.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtGui/qtextdocument.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtGui/qtextoption.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtGui/qtextcursor.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtGui/qtextformat.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtGui/qpen.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtWidgets/QWidget
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/game_window.o ../Game/game_window.cpp
 
 release/moc_game_window.o: release/moc_game_window.cpp 

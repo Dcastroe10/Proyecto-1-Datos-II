@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_game_window_t {
-    const uint offsetsAndSize[10];
-    char stringdata0[73];
+    const uint offsetsAndSize[8];
+    char stringdata0[59];
 };
 #define QT_MOC_LITERAL(ofs, len) \
     uint(offsetof(qt_meta_stringdata_game_window_t, stringdata0) + ofs), len 
@@ -32,12 +32,11 @@ static const qt_meta_stringdata_game_window_t qt_meta_stringdata_game_window = {
 QT_MOC_LITERAL(0, 11), // "game_window"
 QT_MOC_LITERAL(12, 21), // "on_pushButton_clicked"
 QT_MOC_LITERAL(34, 0), // ""
-QT_MOC_LITERAL(35, 32), // "on_label_de_prueba_linkActivated"
-QT_MOC_LITERAL(68, 4) // "link"
+QT_MOC_LITERAL(35, 23) // "on_pushButton_1_clicked"
 
     },
     "game_window\0on_pushButton_clicked\0\0"
-    "on_label_de_prueba_linkActivated\0link"
+    "on_pushButton_1_clicked"
 };
 #undef QT_MOC_LITERAL
 
@@ -56,11 +55,11 @@ static const uint qt_meta_data_game_window[] = {
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
        1,    0,   26,    2, 0x08,    1 /* Private */,
-       3,    1,   27,    2, 0x08,    2 /* Private */,
+       3,    0,   27,    2, 0x08,    2 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
-    QMetaType::Void, QMetaType::QString,    4,
+    QMetaType::Void,
 
        0        // eod
 };
@@ -71,10 +70,12 @@ void game_window::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id,
         auto *_t = static_cast<game_window *>(_o);
         (void)_t;
         switch (_id) {
-        case 0: _t->on_pushButton_clicked(); break;
+
+        case 1: _t->on_pushButton_1_clicked(); break;
         default: ;
         }
     }
+    (void)_a;
 }
 
 const QMetaObject game_window::staticMetaObject = { {
@@ -85,7 +86,7 @@ const QMetaObject game_window::staticMetaObject = { {
     nullptr,
 qt_incomplete_metaTypeArray<qt_meta_stringdata_game_window_t
 , QtPrivate::TypeAndForceComplete<game_window, std::true_type>
-, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<const QString &, std::false_type>
+, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>
 
 
 >,

@@ -20,11 +20,13 @@ class Client
 private:
     WSAData wsaData;
     sockaddr_in direccion_client_socket;
-    char buffer [1024]; //size of message
+    char buffer [40000]; //because of the size of the images
+    char image [40000]; //because of the size of the images
     std::string string_message;
     int wsa_start;
     int cliente_socket;
     int server_socket;
+
 
 
 
@@ -33,6 +35,7 @@ public:
     void send_data();
     void recieve_data ();
     void create_recieve_thread();
+    char* get_image();
 
 };
 

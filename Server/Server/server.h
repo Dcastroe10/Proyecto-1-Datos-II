@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "server_socket.h"
+#include "tarjetas.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Server; }
@@ -22,5 +23,7 @@ private slots:
 private:
     Ui::Server *ui;
     Server_socket servidor;
+    tarjetas tarjetas[];
+
 };
 #endif // SERVER_H

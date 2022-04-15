@@ -1,5 +1,6 @@
 #include "server.h"
 #include "ui_server.h"
+#include "tarjetas.h"
 
 Server::Server(QWidget *parent)
     : QMainWindow(parent)
@@ -8,7 +9,7 @@ Server::Server(QWidget *parent)
     ui->setupUi(this);
     servidor.Start();
     servidor.connect();
-    servidor.create_recieve_thread();
+    //servidor.create_recieve_thread();
 
 
 
@@ -22,8 +23,7 @@ Server::~Server()
 
 void Server::on_pushButton_clicked()
 {
-    std::cout<<"alala";
     servidor.send_data();
-
+    qDebug()<<"data enviada \n";
 }
 

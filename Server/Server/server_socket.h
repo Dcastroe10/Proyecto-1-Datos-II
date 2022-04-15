@@ -1,9 +1,6 @@
 #ifndef SERVER_SOCKET_H
 #define SERVER_SOCKET_H
 
-
-
-
 #include <iostream>
 #include <string>
 #include <winsock2.h>
@@ -46,10 +43,9 @@ public:
 
     int server_socket;
     int client_socket = 10; //CHANGE para poner varios maybeee o hacer otroo o lista
-    int client_socket2 = 10;
 
 
-    char buffer [5000]; //size of messages
+    char buffer [40000]; //for the images
 
 
 public:
@@ -58,7 +54,6 @@ public:
     void recieve_data ();
     void send_data();
     void create_recieve_thread();
-
 
 };
 
