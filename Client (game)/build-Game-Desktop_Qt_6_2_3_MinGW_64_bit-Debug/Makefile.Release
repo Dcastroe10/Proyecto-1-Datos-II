@@ -19,7 +19,7 @@ CXXFLAGS      = -fno-keep-inline-dllexport -O2 -Wall -Wextra -Wextra -fexception
 INCPATH       = -I../Game -I. -ID:/Qt/App/6.2.3/mingw_64/include -ID:/Qt/App/6.2.3/mingw_64/include/QtWidgets -ID:/Qt/App/6.2.3/mingw_64/include/QtGui -ID:/Qt/App/6.2.3/mingw_64/include/QtCore -Irelease -I. -I/include -ID:/Qt/App/6.2.3/mingw_64/mkspecs/win32-g++ 
 LINKER      =        g++
 LFLAGS        =        -Wl,-s -Wl,-subsystem,windows -mthreads
-LIBS        =        -lWs2_32 -lwsock32 -pthread D:/Qt/App/6.2.3/mingw_64/lib/libQt6Widgets.a D:/Qt/App/6.2.3/mingw_64/lib/libQt6Gui.a D:/Qt/App/6.2.3/mingw_64/lib/libQt6Core.a -lmingw32 D:/Qt/App/6.2.3/mingw_64/lib/libQt6EntryPoint.a -lshell32  
+LIBS        =        -lWs2_32 -lwsock32 -pthread -std=c++11 D:/Qt/App/6.2.3/mingw_64/lib/libQt6Widgets.a D:/Qt/App/6.2.3/mingw_64/lib/libQt6Gui.a D:/Qt/App/6.2.3/mingw_64/lib/libQt6Core.a -lmingw32 D:/Qt/App/6.2.3/mingw_64/lib/libQt6EntryPoint.a -lshell32  
 QMAKE         = D:/Qt/App/6.2.3/mingw_64/bin/qmake.exe
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -349,7 +349,62 @@ release/client_socket.o: ../Game/client_socket.cpp ../Game/client_socket.h \
 		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qcontainerinfo.h \
 		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qtaggedpointer.h \
 		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qobject_impl.h \
-		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qbindingstorage.h
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qbindingstorage.h \
+		../Game/game_window.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtWidgets/QMainWindow \
+		D:/Qt/App/6.2.3/mingw_64/include/QtWidgets/qmainwindow.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtWidgets/qtwidgetsglobal.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtGui/qtguiglobal.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtGui/qtgui-config.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtWidgets/qtwidgets-config.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtWidgets/qwidget.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtGui/qwindowdefs.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtGui/qwindowdefs_win.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qmargins.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtGui/qpaintdevice.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qrect.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qsize.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qpoint.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtGui/qpalette.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtGui/qcolor.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtGui/qrgb.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtGui/qrgba64.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtGui/qbrush.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtGui/qimage.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtGui/qpixelformat.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtGui/qtransform.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtGui/qpolygon.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtGui/qregion.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qline.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtGui/qpixmap.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtGui/qfont.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtGui/qfontmetrics.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtGui/qfontinfo.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtWidgets/qsizepolicy.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtGui/qcursor.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtGui/qbitmap.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtGui/qkeysequence.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtGui/qevent.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qiodevice.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qpointer.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qurl.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qvariant.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtGui/qeventpoint.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtGui/qvector2d.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtGui/qvectornd.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtGui/qpointingdevice.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtGui/qinputdevice.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtGui/qscreen.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/QList \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/QObject \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/QRect \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/QSize \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/QSizeF \
+		D:/Qt/App/6.2.3/mingw_64/include/QtGui/QTransform \
+		D:/Qt/App/6.2.3/mingw_64/include/QtCore/qnativeinterface.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtWidgets/qtabwidget.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtGui/qicon.h \
+		D:/Qt/App/6.2.3/mingw_64/include/QtGui/QPixmap
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/client_socket.o ../Game/client_socket.cpp
 
 release/main.o: ../Game/main.cpp ../Game/game_window.h \
@@ -672,15 +727,6 @@ release/game_window.o: ../Game/game_window.cpp ../Game/game_window.h \
 		D:/Qt/App/6.2.3/mingw_64/include/QtWidgets/qabstractbutton.h \
 		D:/Qt/App/6.2.3/mingw_64/include/QtWidgets/QStatusBar \
 		D:/Qt/App/6.2.3/mingw_64/include/QtWidgets/qstatusbar.h \
-		D:/Qt/App/6.2.3/mingw_64/include/QtWidgets/QTextEdit \
-		D:/Qt/App/6.2.3/mingw_64/include/QtWidgets/qtextedit.h \
-		D:/Qt/App/6.2.3/mingw_64/include/QtWidgets/qabstractscrollarea.h \
-		D:/Qt/App/6.2.3/mingw_64/include/QtWidgets/qframe.h \
-		D:/Qt/App/6.2.3/mingw_64/include/QtGui/qtextdocument.h \
-		D:/Qt/App/6.2.3/mingw_64/include/QtGui/qtextoption.h \
-		D:/Qt/App/6.2.3/mingw_64/include/QtGui/qtextcursor.h \
-		D:/Qt/App/6.2.3/mingw_64/include/QtGui/qtextformat.h \
-		D:/Qt/App/6.2.3/mingw_64/include/QtGui/qpen.h \
 		D:/Qt/App/6.2.3/mingw_64/include/QtWidgets/QWidget
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/game_window.o ../Game/game_window.cpp
 

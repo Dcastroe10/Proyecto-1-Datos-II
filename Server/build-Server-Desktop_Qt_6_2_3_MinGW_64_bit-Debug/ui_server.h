@@ -11,6 +11,7 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
@@ -24,6 +25,8 @@ class Ui_Server
 public:
     QWidget *centralwidget;
     QPushButton *pushButton;
+    QLabel *label;
+    QLabel *label_hits;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -36,7 +39,13 @@ public:
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         pushButton = new QPushButton(centralwidget);
         pushButton->setObjectName(QString::fromUtf8("pushButton"));
-        pushButton->setGeometry(QRect(200, 150, 89, 31));
+        pushButton->setGeometry(QRect(360, 160, 181, 91));
+        label = new QLabel(centralwidget);
+        label->setObjectName(QString::fromUtf8("label"));
+        label->setGeometry(QRect(40, 320, 71, 21));
+        label_hits = new QLabel(centralwidget);
+        label_hits->setObjectName(QString::fromUtf8("label_hits"));
+        label_hits->setGeometry(QRect(120, 320, 101, 21));
         Server->setCentralWidget(centralwidget);
         menubar = new QMenuBar(Server);
         menubar->setObjectName(QString::fromUtf8("menubar"));
@@ -55,6 +64,8 @@ public:
     {
         Server->setWindowTitle(QCoreApplication::translate("Server", "Server", nullptr));
         pushButton->setText(QCoreApplication::translate("Server", "PushButton", nullptr));
+        label->setText(QCoreApplication::translate("Server", "Page Hits:", nullptr));
+        label_hits->setText(QCoreApplication::translate("Server", "0", nullptr));
     } // retranslateUi
 
 };

@@ -4,8 +4,8 @@
 #include <iostream>
 #include <string>
 #include<stdio.h>
-
-
+#include <QImage>
+#include <QtDebug>
 
 
 

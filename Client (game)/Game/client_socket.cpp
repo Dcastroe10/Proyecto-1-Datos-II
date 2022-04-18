@@ -41,51 +41,34 @@ void Client::create_client(){
 }
 
 
-void Client::send_data(){  //cambiar el tipo de dato si quiero retornar algo!!!!!!!!
+void Client::send_data(char mensaje[]){  //cambiar el tipo de dato si quiero retornar algo!!!!!!!!
     //std::cout <<"Que desea enviar el CLIENTE? ";
     //std::cin >> this->buffer;
     //std::cout <<"this is the message to be sent: "<<buffer<< "\n";//std::cout << buffer << " CLIENTE, este es su mensaje???";
     //send(cliente_socket, buffer, sizeof(buffer), 0 );//revisar si aquí va server o client (del que se manda o al que se manda!!!
-    send(cliente_socket, "HOLAS", 5, 0 );
+    memset(buffer,0,sizeof(buffer));
+    memcpy(buffer,mensaje,sizeof(buffer));
+    send(cliente_socket, buffer , sizeof(buffer), 0 );
+    Sleep(1);
+
     //memset(buffer,0, sizeof(buffer));  //REINICIAR BUFFER CON LA ENTRADA!!!!
 
 }
 
 void Client::recieve_data () { //cambiar el tipo de dato si quiero retornar algo!!!!!!!!
-    //memset(buffer,0, sizeof(buffer));  //REINICIAR BUFFER CON LA ENTRADA!!!!
-    /*
-    char mensaje;
-    mensaje = recv(server_socket,buffer, sizeof(buffer),0);//CAMBIAR EL SERVEEEEER QUE SOLO ESTÁ EN UNA VARIABLE INT PROVISIONAL
-    std::cout <<"El SERVER dice: " << buffer<< " <---\n";
-    std::cout << "-> " <<mensaje<< " <- esto es el recieve";
-
-
     while (1) {
-        std::cout << "CICLO";
-        int answer = 0;
-        memset(buffer, 0, sizeof(buffer));  //REINICIAR BUFFER CON LA ENTRADA!!!!
-        answer = recv(cliente_socket, buffer, sizeof(buffer), 0); //RECIBIR MENSAJE
-
-        if(answer !=-1){
-            std::cout << "EL SERVER DICE ----->: " << answer;
-            std::cout << buffer << " <------EL MENSAJE IOTAS!!!!!";
-        }
-    }
-
-    memset(buffer, 0, sizeof(buffer));  //REINICIAR BUFFER CON LA ENTRADA!!!!
-    int answer = recv(cliente_socket, buffer, sizeof(buffer), 0); //RECIBIR MENSAJE
-    std::cout<<WSAGetLastError();
-    std::cout << "EL SERVER DICE ----->: " << buffer;
-*/
-    while (1) {
-                //std::cout << "CICLO";
+                Sleep(30);
                 int answer = 0;
                 memset(buffer, 0, sizeof(buffer));  //REINICIAR BUFFER CON LA ENTRADA!!!!
                 answer = recv(cliente_socket, buffer, sizeof(buffer), 0); //RECIBIR MENSAJE
                 if(answer !=-1){
-                    memcpy(image,buffer,sizeof(buffer));
-                    //printf("%s\n", buffer);
-                    //send_data();
+                    qDebug()<<"MENSAJE RECIBIDOO";
+                    qDebug()<<answer << "ANSWER";
+                    qDebug()<<"FUUuuuuuuCK";
+
+
+                    printf("%s\n", buffer);
+                    memcpy(image,buffer,sizeof(buffer));                    
                 }else{
                     //memset(image,0,sizeof(image));
                     continue;
@@ -95,37 +78,11 @@ void Client::recieve_data () { //cambiar el tipo de dato si quiero retornar algo
 }
 
 char* Client::get_image(){
+    Sleep(4);
     return image;
-
 }
-
 
 void Client::create_recieve_thread(){
-    //std::thread recieve_thread = std::thread (&Client::recieve_data, this);
-
-    //tacpt = std::thread (&Client :: recieve_data, this)
-
-
-    std::thread thread_recieve(&Client::recieve_data, this);
-    //thread_recieve.join(); //"NO METER POR INTERFAZ" -Elba2022
+    std::thread thread_recieve(&Client::recieve_data, this);    
     thread_recieve.detach();
-
 }
-
-
-
-/*
-int main() {
-    Client cliente;
-    cliente.create_client();
-    cliente.send_data();
-    cliente.recieve_data();
-    cliente.send_data();
-    cliente.recieve_data();
-    //cliente.create_recieve_thread();
-    //std::cout <<"SERÁ QUE LLEGA HASTA AQUÍ??";
-
-
-    return 0;
-}
-*/
