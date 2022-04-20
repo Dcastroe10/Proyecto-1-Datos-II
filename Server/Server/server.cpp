@@ -13,11 +13,10 @@ Server::Server(QWidget *parent)
     servidor.connect();
     servidor.create_recieve_thread();
     this->random_array(ingame_card);
+    jugador_1 = "Jugador 1";
+    jugador_2 = "Jugador 2";
 
-    std::thread thread_set(&Server::set_all_cards, this);
-    thread_set.detach();
-
-    for (int s=0; s<3;s++){  //for the initial cards in memory
+    for (int s=0; s<3;s++){  //le asigna los valores a las tarjetas en memoria
         tarjeta_en_memoria[s]->set_image(game_images_path[s]);
         tarjeta_en_memoria[s]->set_ID(s);
     }
@@ -31,25 +30,22 @@ Server::Server(QWidget *parent)
     std::thread thread_check(&Server::hay_pareja, this);
     thread_check.detach();
 
-
-    servidor.send_data("start",sizeof("start"),30);
+    servidor.send_data("start");
     Sleep(100);
-    QImage check ("Imagenes 100x100/yogi.png"); //!!!!!!!!!!
+    QImage check ("Imagenes 100x100/yogi.png");
     int tamaño = check.sizeInBytes();
     memcpy(check_image,check.bits(),tamaño);
-    servidor.send_data(check_image,40000,30);
+    servidor.send_data(check_image);
 
 
+    /* //to print the matrix
     for(int x = 0 ; x<3;x++){
         for(int z = 0; z<6; z++){
             qDebug()<<matriz_posiciones[x][z]<<"   ";
-            //qDebug()<<matrix_created[x][z]<<"  ";
         }
         qDebug()<<"\n";
-        //qDebug()<<"\n";
     }
-
-
+    */
 }
 
 Server::~Server()
@@ -57,28 +53,10 @@ Server::~Server()
     delete ui;
 }
 
-
-void Server::set_all_cards(){ //delete or revisar
-    /*
-    QImage check ("Imagenes 100x100/check.png");  //to put the image on all cards
-    int tamaño = check.sizeInBytes();
-    memcpy(check_image,check.bits(),tamaño);
-    servidor.send_data(check_image,40000,30);
-    qDebug()<<"CHECK SEND";
-    */
-}
-
-void Server::on_pushButton_clicked() //DELETE
-{
-    qDebug()<<"EL BOTÓN PRESIONADO: "<<servidor.get_button_pressed();
-
-    QImage check ("Imagenes 100x100/check.png");  //to put the image on all cards
-    int tamaño = check.sizeInBytes();
-    memcpy(check_image,check.bits(),tamaño);
-    servidor.send_data(check_image,40000,30);
-    qDebug()<<"CHECK SEND";
-}
-
+/**
+ * @brief Server::random_array randomiza el array para crear la matriz de juego
+ * @param playing_cards = un array con las cartas del juego
+ */
 void Server::random_array(int playing_cards[]){
     int new_array[18];
     bool used_element[18];
@@ -86,9 +64,8 @@ void Server::random_array(int playing_cards[]){
     srand(time(0));
     for(int x = 0; x<18;x++){
         used_element[x]=false;
-        new_array[x]=1234;
+        new_array[x]=1234; //número para realizar comparaciones
     }
-
 
     while (new_array[17] == 1234){
 
@@ -103,25 +80,13 @@ void Server::random_array(int playing_cards[]){
     memcpy(ingame_card,new_array,sizeof(new_array));
     this->create_matrix(new_array);
 
-/*
-    //to print the array
-    for( int f = 0; f < 18;f++){
-       qDebug()<<ingame_card[f];
-       //qDebug()<<used_element[f];
-       //qDebug()<<new_array[0];
-    }
-*/
-
 }
 
-bool Server::used(bool *usados){
-    for (int i = 0 ; i<18; i++){
-        if (usados[i] == false){
-            return true;
-        }
-    }
-    return false;
-   }
+/**
+ * @brief Server::create_matrix Crea una matriz a partir de un array
+ *
+ * @param mixed_list
+ */
 
 void Server::create_matrix(int mixed_list[]){
     int matrix_created[3][6];
@@ -133,510 +98,478 @@ void Server::create_matrix(int mixed_list[]){
         }
     }
     memcpy(matriz_posiciones,matrix_created,sizeof(matrix_created));
-
-
-    for(int x = 0 ; x<3;x++){
-        for(int z = 0; z<6; z++){
-            std::cout<<matriz_posiciones[x][z]<<"   ";
-            //qDebug()<<matrix_created[x][z]<<"  ";
-        }
-        std::cout<<"\n";
-        //qDebug()<<"\n";
-    }
-std::cout<<"\n";
 }
 
+/**
+ * @brief Server::logic Función principal del servidor
+ * Obtiene que botón fue presionado en el cliente para así saber que posición en la matriz debe revisar
+ */
 void Server::logic(){
 
     while(1){
         Sleep(30);
         int button_pressed = servidor.get_button_pressed();
-        /*
-        matriz_posiciones[0][0]=8; //forzar el hit, luego quitar
-        matriz_posiciones[0][1]=8; //forzar el hit, luego quitar
-
-        matriz_posiciones[1][0]=1; //forzar el hit, luego quitar
-        matriz_posiciones[1][1]=1; //forzar el hit, luego quitar
-        */
-
-        if(button_pressed==0){//////////////
-            qDebug()<<"button 0";
+        if(button_pressed==0){
             servidor.reset_button_pressed();
-            int tarjeta_pedida = matriz_posiciones[0][0];//////
+            int tarjeta_pedida = matriz_posiciones[0][0];
             int posicion_tarjeta = check_pages(tarjeta_pedida);
-
             if(posicion_tarjeta !=30){
                 page_hits++;
-                servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image(),40000,30);
-                qDebug()<<"PAGE HIIIT";
-            }else{                                
+                servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image());
+                qDebug()<<"PAGE HIT!";
+            }else{
                 this->add_tarjeta(tarjeta_pedida);
-                 posicion_tarjeta = 0;
-                 servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image(),40000,30);
-                 qDebug()<<"PAGE FAULT";
+                page_faults++;
+                posicion_tarjeta = 0;
+                servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image());
+                qDebug()<<"PAGE FAULT";
             }
-
             if(pareja_1==30){
                 pareja_1=tarjeta_pedida;
-                //this->hay_pareja(posicion_tarjeta);
 
             }else{
                 if(pareja_2==30){
                     pareja_2=tarjeta_pedida;
-                    //this->hay_pareja(posicion_tarjeta);
-                    qDebug()<<pareja_1 <<"    "<<pareja_2;
                 }
             }
         }
 
-        if(button_pressed==1){//////////////
-            qDebug()<<"button 1";
+        if(button_pressed==1){
             servidor.reset_button_pressed();
-            int tarjeta_pedida = matriz_posiciones[0][1];//////
+            int tarjeta_pedida = matriz_posiciones[0][1];
             int posicion_tarjeta = check_pages(tarjeta_pedida);
-            qDebug()<<"Posicion de tarjeta"<<posicion_tarjeta;
             if(posicion_tarjeta !=30){
                 page_hits++;
-                servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image(),40000,30);
-                qDebug()<<"PAGE HIIIT";                
+                servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image());
+                qDebug()<<"PAGE HIT!";
+
             }else{
                 this->add_tarjeta(tarjeta_pedida);
                  posicion_tarjeta = 0;
-                 servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image(),40000,30);
-                   qDebug()<<"PAGE FAULT";   
+                 page_faults++;
+                 servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image());
+                 qDebug()<<"PAGE FAULT";
             }
-
             if(pareja_1==30){
                 pareja_1=tarjeta_pedida;
-                //this->hay_pareja(posicion_tarjeta);
 
             }else{
                 if(pareja_2==30){
                     pareja_2=tarjeta_pedida;
-                    //this->hay_pareja(posicion_tarjeta);
-
-                    qDebug()<<pareja_1 <<"    "<<pareja_2;
                 }
             }
         }
 
         if(button_pressed==2){
-            qDebug()<<"button 2";
             servidor.reset_button_pressed();
-            int tarjeta_pedida = matriz_posiciones[0][2];//////
+            int tarjeta_pedida = matriz_posiciones[0][2];
             int posicion_tarjeta = check_pages(tarjeta_pedida);
-            qDebug()<<"Posicion de tarjeta"<<posicion_tarjeta;
             if(posicion_tarjeta !=30){
                 page_hits++;
-                servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image(),40000,30);
-                qDebug()<<"PAGE HIIIT";
+                servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image());
+                qDebug()<<"PAGE HIT!";
             }else{
                 this->add_tarjeta(tarjeta_pedida);
-                 posicion_tarjeta = 0;
-                 servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image(),40000,30);
-                   qDebug()<<"PAGE FAULT";
+                posicion_tarjeta = 0;
+                page_faults++;
+                servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image());
+                qDebug()<<"PAGE FAULT";
             }
 
             if(pareja_1==30){
                 pareja_1=tarjeta_pedida;
-                //this->hay_pareja(posicion_tarjeta);
 
             }else{
                 if(pareja_2==30){
                     pareja_2=tarjeta_pedida;
-                    //this->hay_pareja(posicion_tarjeta);
-
-                    qDebug()<<pareja_1 <<"    "<<pareja_2;
                 }
             }
         }
 
         if(button_pressed==3){
-            qDebug()<<"button 3";
             servidor.reset_button_pressed();
-            int tarjeta_pedida = matriz_posiciones[0][3];//////
+            int tarjeta_pedida = matriz_posiciones[0][3];
             int posicion_tarjeta = check_pages(tarjeta_pedida);
             if(posicion_tarjeta !=30){
                 page_hits++;
-                servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image(),40000,30);
-                qDebug()<<"PAGE HIT";
+                servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image());
+                qDebug()<<"PAGE HIT!";
             }else{
                 this->add_tarjeta(tarjeta_pedida);
-                 posicion_tarjeta = 0;
-                 servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image(),40000,30);
-                   qDebug()<<"PAGE FAULT";
+                posicion_tarjeta = 0;
+                page_faults++;
+                servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image());
+                qDebug()<<"PAGE FAULT";
             }
             if(pareja_1==30){
                 pareja_1=tarjeta_pedida;
-                //this->hay_pareja(posicion_tarjeta);
             }else{
                 if(pareja_2==30){
                     pareja_2=tarjeta_pedida;
-                    //this->hay_pareja(posicion_tarjeta);
                 }
             }
         }
 
         if(button_pressed==4){
-            qDebug()<<"button 4";
             servidor.reset_button_pressed();
             int tarjeta_pedida = matriz_posiciones[0][4];
             int posicion_tarjeta = check_pages(tarjeta_pedida);
             if(posicion_tarjeta !=30){
                 page_hits++;
-                servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image(),40000,30);
-                qDebug()<<"PAGE HIT";
+                servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image());
+                qDebug()<<"PAGE HIT!";
+
             }else{
                 this->add_tarjeta(tarjeta_pedida);
-                 posicion_tarjeta = 0;
-                 servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image(),40000,30);
-                   qDebug()<<"PAGE FAULT";
+                posicion_tarjeta = 0;
+                page_faults++;
+                servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image());
+                qDebug()<<"PAGE FAULT";
             }
             if(pareja_1==30){
                 pareja_1=tarjeta_pedida;
-                //this->hay_pareja(posicion_tarjeta);
             }else{
                 if(pareja_2==30){
                     pareja_2=tarjeta_pedida;
-                    //this->hay_pareja(posicion_tarjeta);
                 }
             }
         }
 
         if(button_pressed==5){
-            qDebug()<<"button 5";
             servidor.reset_button_pressed();
             int tarjeta_pedida = matriz_posiciones[0][5];
             int posicion_tarjeta = check_pages(tarjeta_pedida);
             if(posicion_tarjeta !=30){
                 page_hits++;
-                servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image(),40000,30);
+                servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image());
                 qDebug()<<"PAGE HIT";
+
             }else{
                 this->add_tarjeta(tarjeta_pedida);
                  posicion_tarjeta = 0;
-                 servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image(),40000,30);
+                 page_faults++;
+                 servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image());
                    qDebug()<<"PAGE FAULT";
             }
             if(pareja_1==30){
                 pareja_1=tarjeta_pedida;
-                //this->hay_pareja(posicion_tarjeta);
             }else{
                 if(pareja_2==30){
                     pareja_2=tarjeta_pedida;
-                    //this->hay_pareja(posicion_tarjeta);
                 }
             }
         }
 
         if(button_pressed==6){
-            qDebug()<<"button 6";
             servidor.reset_button_pressed();
             int tarjeta_pedida = matriz_posiciones[1][0];
             int posicion_tarjeta = check_pages(tarjeta_pedida);
             if(posicion_tarjeta !=30){
                 page_hits++;
-                servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image(),40000,30);
+                servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image());
                 qDebug()<<"PAGE HIT";
+
             }else{
                 this->add_tarjeta(tarjeta_pedida);
                  posicion_tarjeta = 0;
-                 servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image(),40000,30);
+                 page_faults++;
+                 servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image());
                    qDebug()<<"PAGE FAULT";
             }
             if(pareja_1==30){
                 pareja_1=tarjeta_pedida;
-                //this->hay_pareja(posicion_tarjeta);
             }else{
                 if(pareja_2==30){
                     pareja_2=tarjeta_pedida;
-                    //this->hay_pareja(posicion_tarjeta);
                 }
             }
         }
 
         if(button_pressed==7){
-            qDebug()<<"button 7";
             servidor.reset_button_pressed();
             int tarjeta_pedida = matriz_posiciones[1][1];
             int posicion_tarjeta = check_pages(tarjeta_pedida);
             if(posicion_tarjeta !=30){
                 page_hits++;
-                servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image(),40000,30);
+                servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image());
                 qDebug()<<"PAGE HIT";
+
             }else{
                 this->add_tarjeta(tarjeta_pedida);
                  posicion_tarjeta = 0;
-                 servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image(),40000,30);
+                 page_faults++;
+                 servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image());
                    qDebug()<<"PAGE FAULT";
             }
             if(pareja_1==30){
                 pareja_1=tarjeta_pedida;
-                //this->hay_pareja(posicion_tarjeta);
             }else{
                 if(pareja_2==30){
                     pareja_2=tarjeta_pedida;
-                    //this->hay_pareja(posicion_tarjeta);
                 }
             }
         }
 
         if(button_pressed==8){
-            qDebug()<<"button 8";
             servidor.reset_button_pressed();
             int tarjeta_pedida = matriz_posiciones[1][2];
             int posicion_tarjeta = check_pages(tarjeta_pedida);
             if(posicion_tarjeta !=30){
                 page_hits++;
-                servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image(),40000,30);
+                servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image());
                 qDebug()<<"PAGE HIT";
+
+
             }else{
                 this->add_tarjeta(tarjeta_pedida);
                  posicion_tarjeta = 0;
-                 servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image(),40000,30);
+                 page_faults++;
+                 servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image());
                    qDebug()<<"PAGE FAULT";
             }
             if(pareja_1==30){
                 pareja_1=tarjeta_pedida;
-                //this->hay_pareja(posicion_tarjeta);
             }else{
                 if(pareja_2==30){
                     pareja_2=tarjeta_pedida;
-                    //this->hay_pareja(posicion_tarjeta);
                 }
             }
         }
 
         if(button_pressed==9){
-            qDebug()<<"button 9";
             servidor.reset_button_pressed();
             int tarjeta_pedida = matriz_posiciones[1][3];
             int posicion_tarjeta = check_pages(tarjeta_pedida);
             if(posicion_tarjeta !=30){
                 page_hits++;
-                servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image(),40000,30);
+                servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image());
                 qDebug()<<"PAGE HIT";
+
+
             }else{
                 this->add_tarjeta(tarjeta_pedida);
                  posicion_tarjeta = 0;
-                 servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image(),40000,30);
+                 page_faults++;
+                 servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image());
                    qDebug()<<"PAGE FAULT";
             }
             if(pareja_1==30){
                 pareja_1=tarjeta_pedida;
-                //this->hay_pareja(posicion_tarjeta);
             }else{
                 if(pareja_2==30){
                     pareja_2=tarjeta_pedida;
-                    //this->hay_pareja(posicion_tarjeta);
                 }
             }
         }
 
         if(button_pressed==10){
-            qDebug()<<"button 10";
             servidor.reset_button_pressed();
             int tarjeta_pedida = matriz_posiciones[1][4];
             int posicion_tarjeta = check_pages(tarjeta_pedida);
             if(posicion_tarjeta !=30){
                 page_hits++;
-                servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image(),40000,30);
+                servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image());
                 qDebug()<<"PAGE HIT";
+
+
             }else{
                 this->add_tarjeta(tarjeta_pedida);
                  posicion_tarjeta = 0;
-                 servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image(),40000,30);
+                 page_faults++;
+                 servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image());
                    qDebug()<<"PAGE FAULT";
             }
             if(pareja_1==30){
                 pareja_1=tarjeta_pedida;
-                //this->hay_pareja(posicion_tarjeta);
+
             }else{
                 if(pareja_2==30){
                     pareja_2=tarjeta_pedida;
-                    //this->hay_pareja(posicion_tarjeta);
+
                 }
             }
         }
 
         if(button_pressed==11){
-            qDebug()<<"button 11";
             servidor.reset_button_pressed();
             int tarjeta_pedida = matriz_posiciones[1][5];
             int posicion_tarjeta = check_pages(tarjeta_pedida);
             if(posicion_tarjeta !=30){
                 page_hits++;
-                servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image(),40000,30);
+                servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image());
                 qDebug()<<"PAGE HIT";
+
+
             }else{
                 this->add_tarjeta(tarjeta_pedida);
                  posicion_tarjeta = 0;
-                 servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image(),40000,30);
+                 page_faults++;
+                 servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image());
                    qDebug()<<"PAGE FAULT";
             }
             if(pareja_1==30){
                 pareja_1=tarjeta_pedida;
-                //this->hay_pareja(posicion_tarjeta);
             }else{
                 if(pareja_2==30){
                     pareja_2=tarjeta_pedida;
-                    //this->hay_pareja(posicion_tarjeta);
+
                 }
             }
         }
 
         if(button_pressed==12){
-            qDebug()<<"button 12";
             servidor.reset_button_pressed();
             int tarjeta_pedida = matriz_posiciones[2][0];
             int posicion_tarjeta = check_pages(tarjeta_pedida);
             if(posicion_tarjeta !=30){
                 page_hits++;
-                servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image(),40000,30);
+                servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image());
                 qDebug()<<"PAGE HIT";
+
+
             }else{
                 this->add_tarjeta(tarjeta_pedida);
                  posicion_tarjeta = 0;
-                 servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image(),40000,30);
+                 page_faults++;
+                 servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image());
                    qDebug()<<"PAGE FAULT";
             }
             if(pareja_1==30){
                 pareja_1=tarjeta_pedida;
-                //this->hay_pareja(posicion_tarjeta);
             }else{
                 if(pareja_2==30){
                     pareja_2=tarjeta_pedida;
-                    //this->hay_pareja(posicion_tarjeta);
                 }
             }
         }
 
         if(button_pressed==13){
-            qDebug()<<"button 13";
             servidor.reset_button_pressed();
             int tarjeta_pedida = matriz_posiciones[2][1];
             int posicion_tarjeta = check_pages(tarjeta_pedida);
             if(posicion_tarjeta !=30){
                 page_hits++;
-                servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image(),40000,30);
+                servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image());
                 qDebug()<<"PAGE HIT";
+
+
             }else{
                 this->add_tarjeta(tarjeta_pedida);
                  posicion_tarjeta = 0;
-                 servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image(),40000,30);
+                 page_faults++;
+                 servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image());
                    qDebug()<<"PAGE FAULT";
             }
             if(pareja_1==30){
                 pareja_1=tarjeta_pedida;
-                //this->hay_pareja(posicion_tarjeta);
+
             }else{
                 if(pareja_2==30){
                     pareja_2=tarjeta_pedida;
-                    //this->hay_pareja(posicion_tarjeta);
                 }
             }
         }
 
         if(button_pressed==14){
-            qDebug()<<"button 14";
             servidor.reset_button_pressed();
             int tarjeta_pedida = matriz_posiciones[2][2];
             int posicion_tarjeta = check_pages(tarjeta_pedida);
             if(posicion_tarjeta !=30){
                 page_hits++;
-                servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image(),40000,30);
+                servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image());
                 qDebug()<<"PAGE HIT";
+
+
             }else{
                 this->add_tarjeta(tarjeta_pedida);
                  posicion_tarjeta = 0;
-                 servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image(),40000,30);
+                 page_faults++;
+                 servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image());
                    qDebug()<<"PAGE FAULT";
             }
             if(pareja_1==30){
                 pareja_1=tarjeta_pedida;
-                //this->hay_pareja(posicion_tarjeta);
             }else{
                 if(pareja_2==30){
                     pareja_2=tarjeta_pedida;
-                    //this->hay_pareja(posicion_tarjeta);
                 }
             }
         }
 
         if(button_pressed==15){
-            qDebug()<<"button 15";
             servidor.reset_button_pressed();
             int tarjeta_pedida = matriz_posiciones[2][3];
             int posicion_tarjeta = check_pages(tarjeta_pedida);
             if(posicion_tarjeta !=30){
                 page_hits++;
-                servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image(),40000,30);
+                servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image());
                 qDebug()<<"PAGE HIT";
+
+
             }else{
                 this->add_tarjeta(tarjeta_pedida);
                  posicion_tarjeta = 0;
-                 servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image(),40000,30);
+                 page_faults++;
+                 servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image());
                    qDebug()<<"PAGE FAULT";
             }
             if(pareja_1==30){
                 pareja_1=tarjeta_pedida;
-                //this->hay_pareja(posicion_tarjeta);
             }else{
                 if(pareja_2==30){
                     pareja_2=tarjeta_pedida;
-                    //this->hay_pareja(posicion_tarjeta);
                 }
             }
         }
 
         if(button_pressed==16){
-            qDebug()<<"button 16";
             servidor.reset_button_pressed();
             int tarjeta_pedida = matriz_posiciones[2][4];
             int posicion_tarjeta = check_pages(tarjeta_pedida);
             if(posicion_tarjeta !=30){
                 page_hits++;
-                servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image(),40000,30);
+                servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image());
                 qDebug()<<"PAGE HIT";
+
+
             }else{
                 this->add_tarjeta(tarjeta_pedida);
                  posicion_tarjeta = 0;
-                 servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image(),40000,30);
+                 page_faults++;
+                 servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image());
                    qDebug()<<"PAGE FAULT";
             }
             if(pareja_1==30){
                 pareja_1=tarjeta_pedida;
-                //this->hay_pareja(posicion_tarjeta);
             }else{
                 if(pareja_2==30){
                     pareja_2=tarjeta_pedida;
-                    //this->hay_pareja(posicion_tarjeta);
                 }
             }
         }
 
         if(button_pressed==17){
-            qDebug()<<"button 17";
             servidor.reset_button_pressed();
             int tarjeta_pedida = matriz_posiciones[2][5];
             int posicion_tarjeta = check_pages(tarjeta_pedida);
             if(posicion_tarjeta !=30){
                 page_hits++;
-                servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image(),40000,30);
+                servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image());
                 qDebug()<<"PAGE HIT";
+
+
             }else{
                 this->add_tarjeta(tarjeta_pedida);
                  posicion_tarjeta = 0;
-                 servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image(),40000,30);
+                 page_faults++;
+                 servidor.send_data(tarjeta_en_memoria[posicion_tarjeta]->get_image());
                    qDebug()<<"PAGE FAULT";
             }
             if(pareja_1==30){
                 pareja_1=tarjeta_pedida;
-                //this->hay_pareja(posicion_tarjeta);
             }else{
                 if(pareja_2==30){
                     pareja_2=tarjeta_pedida;
-                    //this->hay_pareja(posicion_tarjeta);
                 }
             }
         }
@@ -644,7 +577,11 @@ void Server::logic(){
     }
 }
 
-
+/**
+ * @brief Server::check_pages Busca la tarjeta pedida en las tarjetas cargadas en memoria
+ * @param num
+ * @return la posición de la tarjeta si está cargada en memoria
+ */
 int Server::check_pages(int num){
     for (int f = 0; f < std::size(tarjeta_en_memoria); f++){
         if (tarjeta_en_memoria[f]->get_ID() == num){
@@ -653,54 +590,67 @@ int Server::check_pages(int num){
     }
     return 30;
 }
-
+/**
+ * @brief Server::hay_pareja revisa si entre los botones elegidos tiene el mismo ID para saber si es pareja o no
+ */
 void Server::hay_pareja(){
     while(1){
         Sleep(1000);
-    if (pareja_1 ==30){
-        //qDebug()<<"NO HAY PAREJA";
-        //return false;
-    }else{
-    if (pareja_2 ==30){
-        //qDebug()<<"NO HAY PAREJA ";
-        //return false;
-    }else{
-    if(pareja_1 !=30 && pareja_2 !=30 && pareja_1 == pareja_2){
-         qDebug()<<"HAY PAREJA";
-         servidor.send_data("check",sizeof("check"),30);
-         Sleep(100);
-         pareja_1 = 30;
-         pareja_2 = 30;
+        if (pareja_1 ==30){
+              continue;
+          }else{
+          if (pareja_2 ==30){
+              continue;
+          }else{
+        if(pareja_1 !=30 && pareja_2 !=30 && pareja_1 == pareja_2){
+            servidor.send_data("check");
+            Sleep(100);
+            pareja_1 = 30;
+            pareja_2 = 30;
+            if(jugador_1_playing){
+                puntaje_player1++;
+                jugador_1_playing = false;
+            }else{
+                puntaje_player2++;
+                jugador_1_playing = true;
+            }
 
-
-         QImage check ("Imagenes 100x100/check.png"); //!!!!!!!!!!check!!!
+         QImage check ("Imagenes 100x100/check.png");
          int tamaño = check.sizeInBytes();
          memcpy(check_image,check.bits(),tamaño);
-         servidor.send_data(check_image,40000,30);
+         servidor.send_data(check_image);
 
-         //return true;
+
     }else{
-        qDebug()<<"NO HAY PAREJA son diferentes";
         pareja_1 = 30;
         pareja_2 = 30;
 
-        servidor.send_data("reset", sizeof("reset"), 0); //poner button pressed //el int al final es para saber que butón presionó
+        if(jugador_1_playing){
+            jugador_1_playing = false;
+        }else{
+           jugador_1_playing = true;
+        }
+
+        servidor.send_data("reset");
         Sleep(100);
 
-        QImage check ("Imagenes 100x100/yogi.png"); //!!!!!!!!!!
+        QImage check ("Imagenes 100x100/yogi.png");
         int tamaño = check.sizeInBytes();
         memcpy(check_image,check.bits(),tamaño);
-        servidor.send_data(check_image,40000,30);
+        servidor.send_data(check_image);
 
-        //return false;
 
     }
     }
 }
-    }
+}
 }
 
 
+/**
+ * @brief Server::add_tarjeta en caso de page fault carga la nueva tarjeta en memoria
+ * @param key
+ */
 void Server::add_tarjeta(int key){
     tarjetas* temp = new tarjetas;
     temp->set_ID(key);
@@ -709,23 +659,109 @@ void Server::add_tarjeta(int key){
 
     for (int w = std::size(tarjeta_en_memoria)-1 ; w >0 ; w--){
         tarjeta_en_memoria[w] = tarjeta_en_memoria[w-1];
-        //qDebug()<<tarjeta_en_memoria[w]->get_ID()<<"Id del array creándose";
     }
     tarjeta_en_memoria[0]=temp;
-    //delete tarjeta_en_memoria[sizeof(tarjeta_en_memoria)-1];
-
 
     for (int z = 0 ; z < std::size(tarjeta_en_memoria) ; z++){
         qDebug()<<tarjeta_en_memoria[z]->get_ID()<<"ID";
     }
 }
 
+/**
+ * @brief Server::update_labels Actualiza las labels de la UI del servidor
+ */
 void Server::update_labels(){
     while(1){
        ui->label_hits->setText(QString::number(page_hits));
+       ui->labe_faults->setText(QString::number(page_faults));
+       ui->Tarjetas_memoria->setText(tarjetas_memoria_to_string());
+       ui->Tarjetas_disco->setText(tarjetas_disc_to_string());
+       ui->Memory_usage->setText(memoria_en_uso());
+       ui->puntaje1->setText(QString::number(puntaje_player1));
+       ui->puntaje2->setText(QString::number(puntaje_player2));
        Sleep(30);
     }
 }
 
+/**
+ * @brief Server::tarjetas_memoria_to_string crea el string para poner en la label de
+ * la UI del servidor para mostrar las tarjetas cargadas
+ * @return
+ */
+QString Server::tarjetas_memoria_to_string(){
+    QString aux ="";
+    for(int i = 0; i<std::size(tarjeta_en_memoria); i++){
+        aux.append("Tarjeta ");
+        aux.append(QString::number(tarjeta_en_memoria[i]->get_ID()));
+        aux.append("   ");
+    }
 
+    return aux;
+}
 
+/**
+ * @brief Server::tarjetas_disc_to_string crea el string para poner en la label de
+ * la UI del servidor y así mostrar las tarjetas en disco
+ * @return
+ */
+QString Server::tarjetas_disc_to_string(){
+    QString aux ="";
+    int num1 = tarjeta_en_memoria[0]->get_ID();
+    int num2 = tarjeta_en_memoria[1]->get_ID();
+    int num3 = tarjeta_en_memoria[2]->get_ID();
+    for(int i = 0; i < 9; i++){
+
+        if(num1 == i || num2==i || num3==i){
+            continue;
+        }else{
+            aux.append("Tarjeta ");
+            aux.append(QString::number(i));
+            aux.append("  ");
+        }
+    }
+
+    return aux;
+}
+
+/**
+ * @brief Server::memoria_en_uso obtiene la memoria utilizada del proceso actual
+ * @return
+ */
+QString Server::memoria_en_uso(){
+    QString result="";
+    GetProcessMemoryInfo(GetCurrentProcess(), (PROCESS_MEMORY_COUNTERS*)&process_memory,sizeof(process_memory));
+    result = QString::number(process_memory.WorkingSetSize);
+    return result;
+}
+
+/**
+ * @brief Server::on_ingresar_nombre_clicked función para el ingreso de los nombres
+ * de los jugadores en la UI del server y luego ser enviados por sockets al cliente
+ */
+void Server::on_ingresar_nombre_clicked()
+{
+    if(jugador_1 == "Jugador 1"){
+        jugador_1=ui->lineEdit->text();
+        ui->label_8->setText("Ingrese el nombre del jugador 2");
+        ui->lineEdit->clear();
+        ui->label_6->setText("Puntaje de "+jugador_1+":");
+    }else{
+        if(jugador_2 == "Jugador 2"){
+            jugador_2=ui->lineEdit->text();
+            ui->lineEdit->clear();
+            ui->label_7->setText("Puntaje de "+jugador_2+":");
+            ui->ingresar_nombre->setEnabled(false);
+            servidor.send_data("set players");
+            Sleep(30);
+
+            QByteArray list = jugador_1.toLocal8Bit();
+            char* to_send = list.data();
+            servidor.send_data(to_send);
+
+            Sleep(30);
+            QByteArray list2 = jugador_2.toLocal8Bit();
+            char* to_send2 = list2.data();
+            servidor.send_data(to_send2);
+        }
+    }
+}

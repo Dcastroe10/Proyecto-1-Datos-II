@@ -11,13 +11,8 @@
 #include <sys/types.h>
 #include <stdlib.h>
 #include <stdio.h>
-
-
 #include <QImage>
-
 #include <QtDebug>
-
-
 #include <unistd.h>
 #include <cstdlib>
 
@@ -33,17 +28,13 @@ public:
     WSAData wsaData;
     int wsa_start;
     std::string ip = "127.0.0.1";
-    struct sockaddr_in server_addr;     //STRUCTS
+    struct sockaddr_in server_addr;
     struct sockaddr_in client_addr;
-    //std::string string_message;
     int revisar_bind = 0;
     int revisar_listen = 0;
-
     int server_socket;
     int client_socket = 10;
-    char buffer [40000]; //for the images
-
-
+    char buffer [40000];
     int button_pressed = 30;
 
 
@@ -55,7 +46,7 @@ public:
 
     void recieve_data ();
 
-    void send_data(char path[], int size, int card);             ///////////////
+    void send_data(char path[]);//, int size, int card);             ///////////////
 
     void create_recieve_thread();
 

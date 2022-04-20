@@ -9,10 +9,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string>
-
 #include <thread>
 #include <chrono>
 #include <unistd.h>
+#include <QString>
+#include <QDebug>
 
 
 
@@ -22,9 +23,10 @@ class Client
 private:
     WSAData wsaData;
     sockaddr_in direccion_client_socket;
-    char buffer [200000]; //because of the size of the images  40000
-    char image [200000]; //because of the size of the images
-    std::string string_message;
+    char buffer [200000]; //More than the size of the images to prevention
+    char image [200000]; //More than the size of the images for prevention
+    QString jugador_1;
+    QString jugador_2;
     int wsa_start;
     int cliente_socket;
     int server_socket;
@@ -32,19 +34,17 @@ private:
 
 
 
-
 public:
     void create_client();
-
-    void send_data(char mensaje[1000
-    ]);
-
-
+    void send_data(char mensaje[1000]);
     void recieve_data ();
     void create_recieve_thread();
+    void reset_order();
+    void set_order(int num);
     char* get_image();
     int get_order();
-    void reset_order();
+    QString get_player1();
+    QString get_player2();
 
 };
 

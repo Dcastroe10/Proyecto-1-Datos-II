@@ -11,6 +11,7 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
@@ -41,9 +42,8 @@ public:
     QPushButton *pushButton_16;
     QPushButton *pushButton_17;
     QPushButton *pushButton_18;
-    QPushButton *power_up1;
-    QPushButton *power_up2;
-    QPushButton *power_up3;
+    QLabel *label;
+    QLabel *turno;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -51,72 +51,73 @@ public:
     {
         if (game_window->objectName().isEmpty())
             game_window->setObjectName(QString::fromUtf8("game_window"));
-        game_window->resize(691, 702);
+        game_window->resize(691, 483);
         centralwidget = new QWidget(game_window);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         pushButton_1 = new QPushButton(centralwidget);
         pushButton_1->setObjectName(QString::fromUtf8("pushButton_1"));
-        pushButton_1->setGeometry(QRect(20, 220, 100, 100));
+        pushButton_1->setGeometry(QRect(10, 90, 100, 100));
         pushButton_2 = new QPushButton(centralwidget);
         pushButton_2->setObjectName(QString::fromUtf8("pushButton_2"));
-        pushButton_2->setGeometry(QRect(130, 220, 100, 100));
+        pushButton_2->setGeometry(QRect(120, 90, 100, 100));
         pushButton_3 = new QPushButton(centralwidget);
         pushButton_3->setObjectName(QString::fromUtf8("pushButton_3"));
-        pushButton_3->setGeometry(QRect(240, 220, 100, 100));
+        pushButton_3->setGeometry(QRect(230, 90, 100, 100));
         pushButton_4 = new QPushButton(centralwidget);
         pushButton_4->setObjectName(QString::fromUtf8("pushButton_4"));
-        pushButton_4->setGeometry(QRect(350, 220, 100, 100));
+        pushButton_4->setGeometry(QRect(340, 90, 100, 100));
         pushButton_5 = new QPushButton(centralwidget);
         pushButton_5->setObjectName(QString::fromUtf8("pushButton_5"));
-        pushButton_5->setGeometry(QRect(460, 220, 100, 100));
+        pushButton_5->setGeometry(QRect(450, 90, 100, 100));
         pushButton_6 = new QPushButton(centralwidget);
         pushButton_6->setObjectName(QString::fromUtf8("pushButton_6"));
-        pushButton_6->setGeometry(QRect(570, 220, 100, 100));
+        pushButton_6->setGeometry(QRect(560, 90, 100, 100));
         pushButton_7 = new QPushButton(centralwidget);
         pushButton_7->setObjectName(QString::fromUtf8("pushButton_7"));
-        pushButton_7->setGeometry(QRect(20, 330, 100, 100));
+        pushButton_7->setGeometry(QRect(10, 200, 100, 100));
         pushButton_8 = new QPushButton(centralwidget);
         pushButton_8->setObjectName(QString::fromUtf8("pushButton_8"));
-        pushButton_8->setGeometry(QRect(130, 330, 100, 100));
+        pushButton_8->setGeometry(QRect(120, 200, 100, 100));
         pushButton_9 = new QPushButton(centralwidget);
         pushButton_9->setObjectName(QString::fromUtf8("pushButton_9"));
-        pushButton_9->setGeometry(QRect(240, 330, 100, 100));
+        pushButton_9->setGeometry(QRect(230, 200, 100, 100));
         pushButton_10 = new QPushButton(centralwidget);
         pushButton_10->setObjectName(QString::fromUtf8("pushButton_10"));
-        pushButton_10->setGeometry(QRect(350, 330, 100, 100));
+        pushButton_10->setGeometry(QRect(340, 200, 100, 100));
         pushButton_11 = new QPushButton(centralwidget);
         pushButton_11->setObjectName(QString::fromUtf8("pushButton_11"));
-        pushButton_11->setGeometry(QRect(460, 330, 100, 100));
+        pushButton_11->setGeometry(QRect(450, 200, 100, 100));
         pushButton_12 = new QPushButton(centralwidget);
         pushButton_12->setObjectName(QString::fromUtf8("pushButton_12"));
-        pushButton_12->setGeometry(QRect(570, 330, 100, 100));
+        pushButton_12->setGeometry(QRect(560, 200, 100, 100));
         pushButton_13 = new QPushButton(centralwidget);
         pushButton_13->setObjectName(QString::fromUtf8("pushButton_13"));
-        pushButton_13->setGeometry(QRect(20, 440, 100, 100));
+        pushButton_13->setGeometry(QRect(10, 310, 100, 100));
         pushButton_14 = new QPushButton(centralwidget);
         pushButton_14->setObjectName(QString::fromUtf8("pushButton_14"));
-        pushButton_14->setGeometry(QRect(130, 440, 100, 100));
+        pushButton_14->setGeometry(QRect(120, 310, 100, 100));
         pushButton_15 = new QPushButton(centralwidget);
         pushButton_15->setObjectName(QString::fromUtf8("pushButton_15"));
-        pushButton_15->setGeometry(QRect(240, 440, 100, 100));
+        pushButton_15->setGeometry(QRect(230, 310, 100, 100));
         pushButton_16 = new QPushButton(centralwidget);
         pushButton_16->setObjectName(QString::fromUtf8("pushButton_16"));
-        pushButton_16->setGeometry(QRect(350, 440, 100, 100));
+        pushButton_16->setGeometry(QRect(340, 310, 100, 100));
         pushButton_17 = new QPushButton(centralwidget);
         pushButton_17->setObjectName(QString::fromUtf8("pushButton_17"));
-        pushButton_17->setGeometry(QRect(460, 440, 100, 100));
+        pushButton_17->setGeometry(QRect(450, 310, 100, 100));
         pushButton_18 = new QPushButton(centralwidget);
         pushButton_18->setObjectName(QString::fromUtf8("pushButton_18"));
-        pushButton_18->setGeometry(QRect(570, 440, 100, 100));
-        power_up1 = new QPushButton(centralwidget);
-        power_up1->setObjectName(QString::fromUtf8("power_up1"));
-        power_up1->setGeometry(QRect(20, 610, 89, 31));
-        power_up2 = new QPushButton(centralwidget);
-        power_up2->setObjectName(QString::fromUtf8("power_up2"));
-        power_up2->setGeometry(QRect(120, 610, 89, 31));
-        power_up3 = new QPushButton(centralwidget);
-        power_up3->setObjectName(QString::fromUtf8("power_up3"));
-        power_up3->setGeometry(QRect(220, 610, 89, 31));
+        pushButton_18->setGeometry(QRect(560, 310, 100, 100));
+        label = new QLabel(centralwidget);
+        label->setObjectName(QString::fromUtf8("label"));
+        label->setGeometry(QRect(20, 20, 141, 51));
+        QFont font;
+        font.setPointSize(20);
+        label->setFont(font);
+        turno = new QLabel(centralwidget);
+        turno->setObjectName(QString::fromUtf8("turno"));
+        turno->setGeometry(QRect(160, 30, 231, 41));
+        turno->setFont(font);
         game_window->setCentralWidget(centralwidget);
         menubar = new QMenuBar(game_window);
         menubar->setObjectName(QString::fromUtf8("menubar"));
@@ -152,9 +153,8 @@ public:
         pushButton_16->setText(QString());
         pushButton_17->setText(QString());
         pushButton_18->setText(QString());
-        power_up1->setText(QCoreApplication::translate("game_window", "Power up 1", nullptr));
-        power_up2->setText(QCoreApplication::translate("game_window", "Power up 2", nullptr));
-        power_up3->setText(QCoreApplication::translate("game_window", "Power up 3", nullptr));
+        label->setText(QCoreApplication::translate("game_window", "Jugando:", nullptr));
+        turno->setText(QString());
     } // retranslateUi
 
 };

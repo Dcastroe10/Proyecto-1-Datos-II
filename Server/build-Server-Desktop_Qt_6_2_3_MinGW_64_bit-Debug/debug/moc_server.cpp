@@ -23,18 +23,18 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_Server_t {
     const uint offsetsAndSize[6];
-    char stringdata0[30];
+    char stringdata0[35];
 };
 #define QT_MOC_LITERAL(ofs, len) \
     uint(offsetof(qt_meta_stringdata_Server_t, stringdata0) + ofs), len 
 static const qt_meta_stringdata_Server_t qt_meta_stringdata_Server = {
     {
 QT_MOC_LITERAL(0, 6), // "Server"
-QT_MOC_LITERAL(7, 21), // "on_pushButton_clicked"
-QT_MOC_LITERAL(29, 0) // ""
+QT_MOC_LITERAL(7, 26), // "on_ingresar_nombre_clicked"
+QT_MOC_LITERAL(34, 0) // ""
 
     },
-    "Server\0on_pushButton_clicked\0"
+    "Server\0on_ingresar_nombre_clicked\0"
 };
 #undef QT_MOC_LITERAL
 
@@ -66,7 +66,7 @@ void Server::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
         auto *_t = static_cast<Server *>(_o);
         (void)_t;
         switch (_id) {
-        case 0: _t->on_pushButton_clicked(); break;
+        case 0: _t->on_ingresar_nombre_clicked(); break;
         default: ;
         }
     }
