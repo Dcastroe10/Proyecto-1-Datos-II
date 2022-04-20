@@ -60,10 +60,13 @@ void Client::recieve_data () { //cambiar el tipo de dato si quiero retornar algo
                             order = 1;
                             qDebug()<<"CHEECK";
 
+
                         }else{
                             if(strcmp(buffer,"start")==0){
                                 order=2;
                                 qDebug()<<"startttt";
+                                //Sleep(100);
+                                //order = 30;
                             }else{
                          memcpy(image,buffer,sizeof(buffer));
                             }

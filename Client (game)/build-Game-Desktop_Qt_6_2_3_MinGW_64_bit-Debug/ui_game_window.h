@@ -51,7 +51,7 @@ public:
     {
         if (game_window->objectName().isEmpty())
             game_window->setObjectName(QString::fromUtf8("game_window"));
-        game_window->resize(808, 702);
+        game_window->resize(691, 702);
         centralwidget = new QWidget(game_window);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         pushButton_1 = new QPushButton(centralwidget);
@@ -120,7 +120,7 @@ public:
         game_window->setCentralWidget(centralwidget);
         menubar = new QMenuBar(game_window);
         menubar->setObjectName(QString::fromUtf8("menubar"));
-        menubar->setGeometry(QRect(0, 0, 808, 27));
+        menubar->setGeometry(QRect(0, 0, 691, 27));
         game_window->setMenuBar(menubar);
         statusbar = new QStatusBar(game_window);
         statusbar->setObjectName(QString::fromUtf8("statusbar"));

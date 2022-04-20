@@ -28,6 +28,9 @@ Server::Server(QWidget *parent)
     std::thread thread_labels(&Server::update_labels, this);
     thread_labels.detach();
 
+    std::thread thread_check(&Server::hay_pareja, this);
+    thread_check.detach();
+
 
     servidor.send_data("start",sizeof("check"),30);
     Sleep(100);
@@ -35,6 +38,16 @@ Server::Server(QWidget *parent)
     int tamaño = check.sizeInBytes();
     memcpy(check_image,check.bits(),tamaño);
     servidor.send_data(check_image,40000,30);
+
+
+    for(int x = 0 ; x<3;x++){
+        for(int z = 0; z<6; z++){
+            qDebug()<<matriz_posiciones[x][z]<<"   ";
+            //qDebug()<<matrix_created[x][z]<<"  ";
+        }
+        qDebug()<<"\n";
+        //qDebug()<<"\n";
+    }
 
 
 }
@@ -138,11 +151,13 @@ void Server::logic(){
     while(1){
         Sleep(30);
         int button_pressed = servidor.get_button_pressed();
+        /*
         matriz_posiciones[0][0]=8; //forzar el hit, luego quitar
         matriz_posiciones[0][1]=8; //forzar el hit, luego quitar
 
         matriz_posiciones[1][0]=1; //forzar el hit, luego quitar
         matriz_posiciones[1][1]=1; //forzar el hit, luego quitar
+        */
 
         if(button_pressed==0){//////////////
             qDebug()<<"button 0";
@@ -163,13 +178,12 @@ void Server::logic(){
 
             if(pareja_1==30){
                 pareja_1=tarjeta_pedida;
-                this->hay_pareja(posicion_tarjeta);
-                //qDebug()<<this->hay_pareja(posicion_tarjeta)<<"RETURN DEL HAY PAREJA 1";
+                //this->hay_pareja(posicion_tarjeta);
+
             }else{
                 if(pareja_2==30){
                     pareja_2=tarjeta_pedida;
-                    this->hay_pareja(posicion_tarjeta);
-                    //qDebug()<<this->hay_pareja()<<"RETURN DEL HAY PAREJA 2";
+                    //this->hay_pareja(posicion_tarjeta);
                     qDebug()<<pareja_1 <<"    "<<pareja_2;
                 }
             }
@@ -194,13 +208,13 @@ void Server::logic(){
 
             if(pareja_1==30){
                 pareja_1=tarjeta_pedida;
-                this->hay_pareja(posicion_tarjeta);
-                //qDebug()<<this->hay_pareja()<<"RETURN DEL HAY PAREJA 1";
+                //this->hay_pareja(posicion_tarjeta);
+
             }else{
                 if(pareja_2==30){
                     pareja_2=tarjeta_pedida;
-                    this->hay_pareja(posicion_tarjeta);
-                    //qDebug()<<this->hay_pareja()<<"RETURN DEL HAY PAREJA 2";
+                    //this->hay_pareja(posicion_tarjeta);
+
                     qDebug()<<pareja_1 <<"    "<<pareja_2;
                 }
             }
@@ -225,13 +239,13 @@ void Server::logic(){
 
             if(pareja_1==30){
                 pareja_1=tarjeta_pedida;
-                this->hay_pareja(posicion_tarjeta);
-                //qDebug()<<this->hay_pareja()<<"RETURN DEL HAY PAREJA 1";
+                //this->hay_pareja(posicion_tarjeta);
+
             }else{
                 if(pareja_2==30){
                     pareja_2=tarjeta_pedida;
-                    this->hay_pareja(posicion_tarjeta);
-                    //qDebug()<<this->hay_pareja()<<"RETURN DEL HAY PAREJA 2";
+                    //this->hay_pareja(posicion_tarjeta);
+
                     qDebug()<<pareja_1 <<"    "<<pareja_2;
                 }
             }
@@ -254,11 +268,11 @@ void Server::logic(){
             }
             if(pareja_1==30){
                 pareja_1=tarjeta_pedida;
-                this->hay_pareja(posicion_tarjeta);
+                //this->hay_pareja(posicion_tarjeta);
             }else{
                 if(pareja_2==30){
                     pareja_2=tarjeta_pedida;
-                    this->hay_pareja(posicion_tarjeta);
+                    //this->hay_pareja(posicion_tarjeta);
                 }
             }
         }
@@ -280,11 +294,11 @@ void Server::logic(){
             }
             if(pareja_1==30){
                 pareja_1=tarjeta_pedida;
-                this->hay_pareja(posicion_tarjeta);
+                //this->hay_pareja(posicion_tarjeta);
             }else{
                 if(pareja_2==30){
                     pareja_2=tarjeta_pedida;
-                    this->hay_pareja(posicion_tarjeta);
+                    //this->hay_pareja(posicion_tarjeta);
                 }
             }
         }
@@ -306,11 +320,11 @@ void Server::logic(){
             }
             if(pareja_1==30){
                 pareja_1=tarjeta_pedida;
-                this->hay_pareja(posicion_tarjeta);
+                //this->hay_pareja(posicion_tarjeta);
             }else{
                 if(pareja_2==30){
                     pareja_2=tarjeta_pedida;
-                    this->hay_pareja(posicion_tarjeta);
+                    //this->hay_pareja(posicion_tarjeta);
                 }
             }
         }
@@ -332,11 +346,11 @@ void Server::logic(){
             }
             if(pareja_1==30){
                 pareja_1=tarjeta_pedida;
-                this->hay_pareja(posicion_tarjeta);
+                //this->hay_pareja(posicion_tarjeta);
             }else{
                 if(pareja_2==30){
                     pareja_2=tarjeta_pedida;
-                    this->hay_pareja(posicion_tarjeta);
+                    //this->hay_pareja(posicion_tarjeta);
                 }
             }
         }
@@ -358,11 +372,11 @@ void Server::logic(){
             }
             if(pareja_1==30){
                 pareja_1=tarjeta_pedida;
-                this->hay_pareja(posicion_tarjeta);
+                //this->hay_pareja(posicion_tarjeta);
             }else{
                 if(pareja_2==30){
                     pareja_2=tarjeta_pedida;
-                    this->hay_pareja(posicion_tarjeta);
+                    //this->hay_pareja(posicion_tarjeta);
                 }
             }
         }
@@ -384,11 +398,11 @@ void Server::logic(){
             }
             if(pareja_1==30){
                 pareja_1=tarjeta_pedida;
-                this->hay_pareja(posicion_tarjeta);
+                //this->hay_pareja(posicion_tarjeta);
             }else{
                 if(pareja_2==30){
                     pareja_2=tarjeta_pedida;
-                    this->hay_pareja(posicion_tarjeta);
+                    //this->hay_pareja(posicion_tarjeta);
                 }
             }
         }
@@ -410,11 +424,11 @@ void Server::logic(){
             }
             if(pareja_1==30){
                 pareja_1=tarjeta_pedida;
-                this->hay_pareja(posicion_tarjeta);
+                //this->hay_pareja(posicion_tarjeta);
             }else{
                 if(pareja_2==30){
                     pareja_2=tarjeta_pedida;
-                    this->hay_pareja(posicion_tarjeta);
+                    //this->hay_pareja(posicion_tarjeta);
                 }
             }
         }
@@ -436,11 +450,11 @@ void Server::logic(){
             }
             if(pareja_1==30){
                 pareja_1=tarjeta_pedida;
-                this->hay_pareja(posicion_tarjeta);
+                //this->hay_pareja(posicion_tarjeta);
             }else{
                 if(pareja_2==30){
                     pareja_2=tarjeta_pedida;
-                    this->hay_pareja(posicion_tarjeta);
+                    //this->hay_pareja(posicion_tarjeta);
                 }
             }
         }
@@ -462,11 +476,11 @@ void Server::logic(){
             }
             if(pareja_1==30){
                 pareja_1=tarjeta_pedida;
-                this->hay_pareja(posicion_tarjeta);
+                //this->hay_pareja(posicion_tarjeta);
             }else{
                 if(pareja_2==30){
                     pareja_2=tarjeta_pedida;
-                    this->hay_pareja(posicion_tarjeta);
+                    //this->hay_pareja(posicion_tarjeta);
                 }
             }
         }
@@ -488,11 +502,11 @@ void Server::logic(){
             }
             if(pareja_1==30){
                 pareja_1=tarjeta_pedida;
-                this->hay_pareja(posicion_tarjeta);
+                //this->hay_pareja(posicion_tarjeta);
             }else{
                 if(pareja_2==30){
                     pareja_2=tarjeta_pedida;
-                    this->hay_pareja(posicion_tarjeta);
+                    //this->hay_pareja(posicion_tarjeta);
                 }
             }
         }
@@ -514,11 +528,11 @@ void Server::logic(){
             }
             if(pareja_1==30){
                 pareja_1=tarjeta_pedida;
-                this->hay_pareja(posicion_tarjeta);
+                //this->hay_pareja(posicion_tarjeta);
             }else{
                 if(pareja_2==30){
                     pareja_2=tarjeta_pedida;
-                    this->hay_pareja(posicion_tarjeta);
+                    //this->hay_pareja(posicion_tarjeta);
                 }
             }
         }
@@ -540,11 +554,11 @@ void Server::logic(){
             }
             if(pareja_1==30){
                 pareja_1=tarjeta_pedida;
-                this->hay_pareja(posicion_tarjeta);
+                //this->hay_pareja(posicion_tarjeta);
             }else{
                 if(pareja_2==30){
                     pareja_2=tarjeta_pedida;
-                    this->hay_pareja(posicion_tarjeta);
+                    //this->hay_pareja(posicion_tarjeta);
                 }
             }
         }
@@ -566,11 +580,11 @@ void Server::logic(){
             }
             if(pareja_1==30){
                 pareja_1=tarjeta_pedida;
-                this->hay_pareja(posicion_tarjeta);
+                //this->hay_pareja(posicion_tarjeta);
             }else{
                 if(pareja_2==30){
                     pareja_2=tarjeta_pedida;
-                    this->hay_pareja(posicion_tarjeta);
+                    //this->hay_pareja(posicion_tarjeta);
                 }
             }
         }
@@ -592,11 +606,11 @@ void Server::logic(){
             }
             if(pareja_1==30){
                 pareja_1=tarjeta_pedida;
-                this->hay_pareja(posicion_tarjeta);
+                //this->hay_pareja(posicion_tarjeta);
             }else{
                 if(pareja_2==30){
                     pareja_2=tarjeta_pedida;
-                    this->hay_pareja(posicion_tarjeta);
+                    //this->hay_pareja(posicion_tarjeta);
                 }
             }
         }
@@ -618,11 +632,11 @@ void Server::logic(){
             }
             if(pareja_1==30){
                 pareja_1=tarjeta_pedida;
-                this->hay_pareja(posicion_tarjeta);
+                //this->hay_pareja(posicion_tarjeta);
             }else{
                 if(pareja_2==30){
                     pareja_2=tarjeta_pedida;
-                    this->hay_pareja(posicion_tarjeta);
+                    //this->hay_pareja(posicion_tarjeta);
                 }
             }
         }
@@ -640,24 +654,31 @@ int Server::check_pages(int num){
     return 30;
 }
 
-bool Server::hay_pareja(int card){
+void Server::hay_pareja(){
+    while(1){
+        Sleep(1000);
     if (pareja_1 ==30){
-        qDebug()<<"NO HAY PAREJA";
-        return false;
+        //qDebug()<<"NO HAY PAREJA";
+        //return false;
     }else{
     if (pareja_2 ==30){
-        qDebug()<<"NO HAY PAREJA 222222";
-        return false;
+        //qDebug()<<"NO HAY PAREJA ";
+        //return false;
     }else{
     if(pareja_1 !=30 && pareja_2 !=30 && pareja_1 == pareja_2){
          qDebug()<<"HAY PAREJA";
          servidor.send_data("check",sizeof("check"),30);
          Sleep(100);
-         QImage check ("Imagenes 100x100/check.png"); //!!!!!!!!!!
+         pareja_1 = 30;
+         pareja_2 = 30;
+
+
+         QImage check ("Imagenes 100x100/check.png"); //!!!!!!!!!!check!!!
          int tamaño = check.sizeInBytes();
          memcpy(check_image,check.bits(),tamaño);
          servidor.send_data(check_image,40000,30);
-         return true;
+
+         //return true;
     }else{
         qDebug()<<"NO HAY PAREJA son diferentes";
         pareja_1 = 30;
@@ -665,17 +686,20 @@ bool Server::hay_pareja(int card){
 
         servidor.send_data("reset", sizeof("reset"), 0); //poner button pressed //el int al final es para saber que butón presionó
         Sleep(100);
+
         QImage check ("Imagenes 100x100/yogi.png"); //!!!!!!!!!!
         int tamaño = check.sizeInBytes();
         memcpy(check_image,check.bits(),tamaño);
         servidor.send_data(check_image,40000,30);
-        return false;
+
+        //return false;
 
     }
     }
 }
-
+    }
 }
+
 
 void Server::add_tarjeta(int key){
     tarjetas* temp = new tarjetas;

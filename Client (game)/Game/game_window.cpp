@@ -279,8 +279,8 @@ void game_window::change_button(){
 
             cliente.reset_order();
             this->reset_pressed();
-            qDebug()<<button_pressed_1;
-            qDebug()<<button_pressed_2;
+            qDebug()<<"A"<<button_pressed_1;
+            qDebug()<<"B"<<button_pressed_2;
         }
         if(cliente.get_order()==1){  //To change the image when it's a pair
             Sleep(200);
@@ -406,8 +406,7 @@ void game_window::change_button(){
             qDebug()<<"A: "<<button_pressed_1;
             qDebug()<<"B: "<<button_pressed_2;
         }
-
-         if(cliente.get_order()==2){
+        if(cliente.get_order()==2){
              qDebug()<<"EMPEZAR";
              this->start_image();
              cliente.reset_order();

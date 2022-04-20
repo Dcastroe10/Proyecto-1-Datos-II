@@ -31,7 +31,7 @@ public:
 
     void logic();
 
-    bool hay_pareja(int card);
+    void hay_pareja();
 
     int check_pages(int num);
 
