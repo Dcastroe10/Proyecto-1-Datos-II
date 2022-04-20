@@ -13,39 +13,26 @@
 void Client::create_client(){
     wsa_start = WSAStartup(MAKEWORD(2,2), &wsaData);
     cliente_socket = socket(AF_INET, SOCK_STREAM,0);
-
     memset(&direccion_client_socket, 0, sizeof(direccion_client_socket));
-
-
     direccion_client_socket.sin_family = AF_INET;
     direccion_client_socket.sin_addr.s_addr = inet_addr("127.0.0.1");
     direccion_client_socket.sin_port = htons(9090);
-
-
     int conexion = connect(cliente_socket,(sockaddr*)&direccion_client_socket, sizeof (direccion_client_socket));
-    //std::cout<<WSAGetLastError();
-    //std::cout <<"\n"<<conexion<<"esta es el int conexion";
+
+
     if (wsa_start != 0){
-        printf("Error del WSASTARTUP");
+        qDebug()<<"Error del WSASTARTUP";
         WSACleanup();
     }else{
         if(cliente_socket == INVALID_SOCKET){
-            std::cout <<"ERROR AL INICIAR EL CLIENTE SOCKET";
+            qDebug()<<"ERROR AL INICIAR EL CLIENTE SOCKET";
     }else{
-           std::cout <<"TODO SE INICIO BIEN";
+            qDebug() <<"TODO SE INICIO BIEN";
         }
     }
-
-    std::cout <<wsa_start;
-    std::cout <<" <----ESTE ES EL WSAAAAAA";
 }
 
-
-void Client::send_data(char mensaje[]){  //cambiar el tipo de dato si quiero retornar algo!!!!!!!!
-    //std::cout <<"Que desea enviar el CLIENTE? ";
-    //std::cin >> this->buffer;
-    //std::cout <<"this is the message to be sent: "<<buffer<< "\n";//std::cout << buffer << " CLIENTE, este es su mensaje???";
-    //send(cliente_socket, buffer, sizeof(buffer), 0 );//revisar si aquí va server o client (del que se manda o al que se manda!!!
+void Client::send_data(char mensaje[]){
     memset(buffer,0,sizeof(buffer));
     memcpy(buffer,mensaje,sizeof(buffer));
     send(cliente_socket, buffer , sizeof(buffer), 0 );
@@ -56,30 +43,47 @@ void Client::send_data(char mensaje[]){  //cambiar el tipo de dato si quiero ret
 }
 
 void Client::recieve_data () { //cambiar el tipo de dato si quiero retornar algo!!!!!!!!
+   image[0]=123;
     while (1) {
-                Sleep(30);
+                Sleep(1);
                 int answer = 0;
                 memset(buffer, 0, sizeof(buffer));  //REINICIAR BUFFER CON LA ENTRADA!!!!
                 answer = recv(cliente_socket, buffer, sizeof(buffer), 0); //RECIBIR MENSAJE
-                if(answer !=-1){
-                    qDebug()<<"MENSAJE RECIBIDOO";
-                    qDebug()<<answer << "ANSWER";
-                    qDebug()<<"FUUuuuuuuCK";
+                if(answer !=-1){                    
+                    if(strcmp(buffer,"reset")==0){  //==0!!  //meter el sleep ipara que llegue la otra imagen
+                        order = 0;                        
+                        qDebug()<<"CARTAS RESETEADA";
+                        //order=30;
 
+                    }else{
+                        if(strcmp(buffer,"check")==0){ //==0!!
+                            order = 1;
+                            qDebug()<<"CHEECK";
 
-                    printf("%s\n", buffer);
-                    memcpy(image,buffer,sizeof(buffer));                    
-                }else{
-                    //memset(image,0,sizeof(image));
-                    continue;
+                        }else{
+                            if(strcmp(buffer,"start")==0){
+                                order=2;
+                                qDebug()<<"startttt";
+                            }else{
+                         memcpy(image,buffer,sizeof(buffer));
+                            }
+                        }
+                    }
                 }
-}
-
+    }
 }
 
 char* Client::get_image(){
     Sleep(4);
     return image;
+}
+
+int Client::get_order(){
+    return order;
+}
+
+void Client::reset_order(){
+    order = 30;
 }
 
 void Client::create_recieve_thread(){

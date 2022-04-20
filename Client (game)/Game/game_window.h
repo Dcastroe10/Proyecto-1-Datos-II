@@ -20,8 +20,9 @@ public:
     game_window(QWidget *parent = nullptr);
     ~game_window();
     void change_button();
-    void prueba();//DELETE THIS
-
+    void update_button_pressed(int num);
+    void reset_pressed();
+    void start_image();
 
 
 private slots:
@@ -64,6 +65,9 @@ private slots:
 private:
     Client cliente;
     Ui::game_window *ui;
+    int button_pressed_1=30;
+    int button_pressed_2=30;
+
 
 
 };

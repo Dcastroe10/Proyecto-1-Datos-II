@@ -21,6 +21,8 @@ public:
     Server(QWidget *parent = nullptr);
     ~Server();
 
+    void set_all_cards();
+
     void random_array(int playing_cards[]);
 
     void create_matrix(int mixed_list[]);
@@ -28,6 +30,8 @@ public:
     bool used(bool usados[]);
 
     void logic();
+
+    bool hay_pareja(int card);
 
     int check_pages(int num);
 
@@ -52,6 +56,8 @@ private:
                                   "Imagenes 100x100/pig.png","Imagenes 100x100/rabbit.png",
                                   "Imagenes 100x100/tiger.png"};
 
+    char check_image[40000];
+
 
     int IDs[9] = {0,1,2,3,4,5,6,7,8};
 
@@ -62,6 +68,9 @@ private:
                                   {30,30,30,30,30,30}};
 
     int ingame_card[18]={0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8};
+
+    int pareja_1 = 30;
+    int pareja_2 = 30;
 
 
     tarjetas* tarjeta_0 = new tarjetas;

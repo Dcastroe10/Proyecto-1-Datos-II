@@ -55,7 +55,7 @@ public:
 
     void recieve_data ();
 
-    void send_data(char path[], int size);             ///////////////
+    void send_data(char path[], int size, int card);             ///////////////
 
     void create_recieve_thread();
 

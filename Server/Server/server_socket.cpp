@@ -43,7 +43,7 @@ void Server_socket::Start () {
 void Server_socket::connect () {
     int client_lenght = sizeof(client_addr); //socket_lenth
     client_socket = accept(server_socket, (struct sockaddr*)&client_addr,&client_lenght);
-    std::cout <<"cliente 1: "<<client_socket<<"\n";
+    //std::cout <<"cliente 1: "<<client_socket<<"\n";
 
    }
 
@@ -55,11 +55,7 @@ void Server_socket::recieve_data () {
         memset(buffer, 0, sizeof(buffer));  //REINICIA BUFFER CON LA ENTRADA!!!!
         answer = recv(client_socket, buffer, sizeof(buffer), 0); //RECIBIR MENSAJE
 
-
-        if(answer !=-1){
-            //qDebug()<<buffer<<"!!!!!!";
-
-
+        if(answer !=-1){            
             if(strcmp(buffer,"cero,cero")==0){  //TO KNOW WHAT BUTTON IS CLICKED
                 button_pressed = 0;
                 //send_data(0);
@@ -85,10 +81,7 @@ void Server_socket::recieve_data () {
                 button_pressed = 5;
                 //send_data(5);
             }
-
-            //SEGUNDA FILA
-
-
+            /////////////////////////////////////SEGUNDA FILA//////////////////////////////////////////////////
             if(strcmp(buffer,"uno,cero")==0){
                 button_pressed = 6;
                 //send_data(6);
@@ -113,11 +106,7 @@ void Server_socket::recieve_data () {
                 button_pressed = 11;
                 //send_data(11);
             }
-
-
-            //TERCERA FILA
-
-
+            /////////////////////////////////////TERCERA FILA//////////////////////////////////////////////////
             if(strcmp(buffer,"dos,cero")==0){
                 button_pressed = 12;
                 //send_data(12);
@@ -142,14 +131,6 @@ void Server_socket::recieve_data () {
                 button_pressed = 17;
                 //send_data(17);
             }
-
-
-
-
-
-            //std::cout <<" Mensaje del Cliente: "<<buffer<< "<--  \n";
-            //send_data(33);
-            //std::cout <<"data enviada \n";
             continue;
         }else{
             continue;
@@ -158,56 +139,10 @@ void Server_socket::recieve_data () {
     }
 }
 
-void Server_socket::send_data(char path[], int size){  //cambiar el tipo de dato si quiero retornar algo!!!!!!!!
-
+void Server_socket::send_data(char path[], int size, int card){  //cambiar el tipo de dato si quiero retornar algo!!!!!!!!
     memset(buffer, 0, sizeof(buffer));
     memcpy(buffer,path,sizeof(path));
-    //printf("%s\n", path);
-    qDebug()<<"BUFFER DESPUÉS DEL MEMCPY";
     send(client_socket,path,40000,0);
-    //REINICIAR BUFFER CON LA ENTRADA!!!!
-    //QImage imagen_prueba (path);
-    //int tamaño = imagen_prueba.sizeInBytes();
-    //char image_to_send[tamaño];
-    //memcpy(image_to_send,imagen_prueba.bits(),tamaño);
-    //send(client_socket, image_to_send, sizeof (image_to_send),  0 );
-    //printf("%s\n", path);
-    //send(client_socket, path, sizeof (path),  0 );
-    //send(client_socket, "FUCK",sizeof("FUCK"),0);
-
-    /*
-   if(num == 0){
-    memset(buffer, 0, sizeof(buffer));  //REINICIAR BUFFER CON LA ENTRADA!!!!
-    //send(client_socket, "RECIBIDO", 8,  0 );//revisar si aquí va server o client (del que se manda o al que se manda
-    QImage imagen_prueba ("Imagenes 100x100/pig.png");
-    int tamaño = imagen_prueba.sizeInBytes();
-    char image_to_send[tamaño];
-    memcpy(image_to_send,imagen_prueba.bits(),tamaño);
-    send(client_socket, image_to_send, sizeof (image_to_send),  0 );
-   }
-   if (num == 1){
-       memset(buffer, 0, sizeof(buffer));  //REINICIAR BUFFER CON LA ENTRADA!!!!
-       //send(client_socket, "RECIBIDO", 8,  0 );//revisar si aquí va server o client (del que se manda o al que se manda
-       QImage imagen_prueba ("Imagenes 100x100/panda.png");
-       int tamaño = imagen_prueba.sizeInBytes();
-       char image_to_send[tamaño];
-       memcpy(image_to_send,imagen_prueba.bits(),tamaño);
-       send(client_socket, image_to_send, sizeof (image_to_send),  0 );
-   }
-   */
-
-    /*
-    tarjetas tarjeta;
-    tarjeta.set_image(image_to_send);
-    tarjeta.set_ID(0);
-    */
-    //printf("%s\n", tarjeta.get_image());
-    //qDebug()<<tarjeta.get_ID()<<"THIS IS THE ID";
-    //qDebug() <<"imagen enviada";
-
-
-
-
 }
 
 
@@ -215,6 +150,9 @@ void Server_socket::create_recieve_thread(){
     std::thread thread_recieve(&Server_socket::recieve_data, this);
     thread_recieve.detach();
 }
+
+
+
 
 
 int Server_socket::get_button_pressed(){

@@ -28,6 +28,7 @@ private:
     int wsa_start;
     int cliente_socket;
     int server_socket;
+    int order = 30;
 
 
 
@@ -42,6 +43,8 @@ public:
     void recieve_data ();
     void create_recieve_thread();
     char* get_image();
+    int get_order();
+    void reset_order();
 
 };
 
