@@ -32,7 +32,7 @@ Server::Server(QWidget *parent)
     thread_check.detach();
 
 
-    servidor.send_data("start",sizeof("check"),30);
+    servidor.send_data("start",sizeof("start"),30);
     Sleep(100);
     QImage check ("Imagenes 100x100/yogi.png"); //!!!!!!!!!!
     int tamaño = check.sizeInBytes();

@@ -93,66 +93,68 @@ game_window::~game_window()
 }
 
 void game_window::start_image(){
+    Sleep(200);
     char* image_to_change = cliente.get_image();
-       QImage recieved_image ((uchar*)image_to_change, 100, 100, QImage::Format_ARGB32);
-       QPixmap pix_map (QPixmap::fromImage(recieved_image));
-       ui->pushButton_1->setIcon(pix_map);
-       ui->pushButton_1->setIconSize(QSize(100,100));
-       Sleep(2);
-       ui->pushButton_2->setIcon(pix_map);
-       ui->pushButton_2->setIconSize(QSize(100,100));
-       Sleep(2);
-       ui->pushButton_3->setIcon(pix_map);
-       ui->pushButton_3->setIconSize(QSize(100,100));
-       Sleep(2);
-       ui->pushButton_4->setIcon(pix_map);
-       ui->pushButton_4->setIconSize(QSize(100,100));
-       Sleep(2);
-       ui->pushButton_5->setIcon(pix_map);
-       ui->pushButton_5->setIconSize(QSize(100,100));
-       Sleep(2);
-       ui->pushButton_6->setIcon(pix_map);
-       ui->pushButton_6->setIconSize(QSize(100,100));
-       Sleep(2);
-       ui->pushButton_7->setIcon(pix_map);
-       ui->pushButton_7->setIconSize(QSize(100,100));
-       Sleep(2);
-       ui->pushButton_8->setIcon(pix_map);
-       ui->pushButton_8->setIconSize(QSize(100,100));
-       Sleep(2);
-       ui->pushButton_9->setIcon(pix_map);
-       ui->pushButton_9->setIconSize(QSize(100,100));
-       Sleep(2);
-       ui->pushButton_10->setIcon(pix_map);
-       ui->pushButton_10->setIconSize(QSize(100,100));
-       Sleep(2);
-       ui->pushButton_11->setIcon(pix_map);
-       ui->pushButton_11->setIconSize(QSize(100,100));
-       Sleep(2);
-       ui->pushButton_11->setIcon(pix_map);
-       ui->pushButton_11->setIconSize(QSize(100,100));
-       Sleep(2);
-       ui->pushButton_12->setIcon(pix_map);
-       ui->pushButton_12->setIconSize(QSize(100,100));
-       Sleep(2);
-       ui->pushButton_13->setIcon(pix_map);
-       ui->pushButton_13->setIconSize(QSize(100,100));
-       Sleep(2);
-       ui->pushButton_14->setIcon(pix_map);
-       ui->pushButton_14->setIconSize(QSize(100,100));
-       Sleep(2);
-       ui->pushButton_15->setIcon(pix_map);
-       ui->pushButton_15->setIconSize(QSize(100,100));
-       Sleep(2);
-       ui->pushButton_16->setIcon(pix_map);
-       ui->pushButton_16->setIconSize(QSize(100,100));
-       Sleep(2);
-       ui->pushButton_17->setIcon(pix_map);
-       ui->pushButton_17->setIconSize(QSize(100,100));
-       Sleep(2);
-       ui->pushButton_18->setIcon(pix_map);
-       ui->pushButton_18->setIconSize(QSize(100,100));
-       qDebug()<<"YOGIIIII";
+    QImage recieved_image ((uchar*)image_to_change, 100, 100, QImage::Format_ARGB32);
+    QPixmap pix_map (QPixmap::fromImage(recieved_image));
+
+    ui->pushButton_1->setIcon(pix_map);
+    ui->pushButton_1->setIconSize(QSize(100,100));
+
+    ui->pushButton_2->setIcon(pix_map);
+    ui->pushButton_2->setIconSize(QSize(100,100));
+
+    ui->pushButton_3->setIcon(pix_map);
+    ui->pushButton_3->setIconSize(QSize(100,100));
+
+    ui->pushButton_4->setIcon(pix_map);
+    ui->pushButton_4->setIconSize(QSize(100,100));
+
+    ui->pushButton_5->setIcon(pix_map);
+    ui->pushButton_5->setIconSize(QSize(100,100));
+
+    ui->pushButton_6->setIcon(pix_map);
+    ui->pushButton_6->setIconSize(QSize(100,100));
+
+    ui->pushButton_7->setIcon(pix_map);
+    ui->pushButton_7->setIconSize(QSize(100,100));
+
+    ui->pushButton_8->setIcon(pix_map);
+    ui->pushButton_8->setIconSize(QSize(100,100));
+
+    ui->pushButton_9->setIcon(pix_map);
+    ui->pushButton_9->setIconSize(QSize(100,100));
+
+    ui->pushButton_10->setIcon(pix_map);
+    ui->pushButton_10->setIconSize(QSize(100,100));
+
+    ui->pushButton_11->setIcon(pix_map);
+    ui->pushButton_11->setIconSize(QSize(100,100));
+
+    ui->pushButton_11->setIcon(pix_map);
+    ui->pushButton_11->setIconSize(QSize(100,100));
+
+    ui->pushButton_12->setIcon(pix_map);
+    ui->pushButton_12->setIconSize(QSize(100,100));
+
+    ui->pushButton_13->setIcon(pix_map);
+    ui->pushButton_13->setIconSize(QSize(100,100));
+
+    ui->pushButton_14->setIcon(pix_map);
+    ui->pushButton_14->setIconSize(QSize(100,100));
+
+    ui->pushButton_15->setIcon(pix_map);
+    ui->pushButton_15->setIconSize(QSize(100,100));
+
+    ui->pushButton_16->setIcon(pix_map);
+    ui->pushButton_16->setIconSize(QSize(100,100));
+
+    ui->pushButton_17->setIcon(pix_map);
+    ui->pushButton_17->setIconSize(QSize(100,100));
+
+    ui->pushButton_18->setIcon(pix_map);
+    ui->pushButton_18->setIconSize(QSize(100,100));
+
 
 }
 
