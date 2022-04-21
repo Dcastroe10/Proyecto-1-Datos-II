@@ -64,7 +64,7 @@ private:
 
     char check_image[40000];
     int IDs[9] = {0,1,2,3,4,5,6,7,8};
-    //char *button_images [2];
+
 
     int matriz_posiciones[3][6]= {{30,30,30,30,30,30},
                                   {30,30,30,30,30,30},
@@ -79,8 +79,6 @@ private:
     tarjetas* tarjeta_0 = new tarjetas;
     tarjetas* tarjeta_1 = new tarjetas;
     tarjetas* tarjeta_2 = new tarjetas;
-
-    tarjetas tarjetas_matriz [6][3]; //no creo usarla para aplicar lo de memoria
     tarjetas* tarjeta_en_memoria[3]={tarjeta_0,tarjeta_1,tarjeta_2};  //tercera parte de la cantidad total de tarjeta
 
     int page_hits = 0;
