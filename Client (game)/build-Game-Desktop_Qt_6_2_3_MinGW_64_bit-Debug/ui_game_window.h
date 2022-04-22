@@ -110,13 +110,13 @@ public:
         pushButton_18->setGeometry(QRect(560, 310, 100, 100));
         label = new QLabel(centralwidget);
         label->setObjectName(QString::fromUtf8("label"));
-        label->setGeometry(QRect(20, 20, 141, 51));
+        label->setGeometry(QRect(10, 20, 141, 51));
         QFont font;
         font.setPointSize(20);
         label->setFont(font);
         turno = new QLabel(centralwidget);
         turno->setObjectName(QString::fromUtf8("turno"));
-        turno->setGeometry(QRect(160, 30, 231, 41));
+        turno->setGeometry(QRect(150, 20, 421, 41));
         turno->setFont(font);
         game_window->setCentralWidget(centralwidget);
         menubar = new QMenuBar(game_window);
@@ -153,7 +153,7 @@ public:
         pushButton_16->setText(QString());
         pushButton_17->setText(QString());
         pushButton_18->setText(QString());
-        label->setText(QCoreApplication::translate("game_window", "Jugando:", nullptr));
+        label->setText(QCoreApplication::translate("game_window", "Turno de:", nullptr));
         turno->setText(QString());
     } // retranslateUi
 

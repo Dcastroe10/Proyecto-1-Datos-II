@@ -251,7 +251,7 @@
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>20</x>
+      <x>10</x>
       <y>20</y>
       <width>141</width>
       <height>51</height>
@@ -263,15 +263,15 @@
      </font>
     </property>
     <property name="text">
-     <string>Jugando:</string>
+     <string>Turno de:</string>
     </property>
    </widget>
    <widget class="QLabel" name="turno">
     <property name="geometry">
      <rect>
-      <x>160</x>
-      <y>30</y>
-      <width>231</width>
+      <x>150</x>
+      <y>20</y>
+      <width>421</width>
       <height>41</height>
      </rect>
     </property>
